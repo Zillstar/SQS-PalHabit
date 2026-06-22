@@ -44,7 +44,7 @@ describe("mock-data", () => {
     expect(gameState.pet.pokemonSpecies).toBe("bulbasaur");
   });
 
-  it("erstellt neue SpielzustÃ¤nde mit dem gewÃ¤hlten Starter", () => {
+  it("erstellt neue Spielzustände mit dem gewählten Starter", () => {
     expect(createInitialGameState("charmander").pet).toMatchObject({
       starterPokemonSpecies: "charmander",
       pokemonSpecies: "charmander",

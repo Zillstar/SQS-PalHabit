@@ -5,7 +5,7 @@ zentralem App-State und gekapselter Backend-Anbindung.
 
 ## Lokaler Start
 
-Im Repo-Root:
+Komfortstart im Repo-Root:
 
 ```powershell
 .\scripts\dev.ps1
@@ -14,7 +14,7 @@ Im Repo-Root:
 Manuell:
 
 ```powershell
-docker compose up -d db
+docker compose up -d db backend
 cd frontend
 npm install
 npm start
@@ -35,15 +35,17 @@ Der Angular-Proxy in `frontend/proxy.conf.json` leitet lokale Requests weiter:
 /assets -> http://localhost:8181
 ```
 
+Im Docker-Build uebernimmt `frontend/nginx.conf` dieselbe Aufgabe.
+
 ## App-Flow
 
-1. Splash-Screen öffnen.
+1. Splash-Screen oeffnen.
 2. Einloggen oder registrieren.
 3. Tagesquests laden.
 4. Quest erledigen.
 5. Wasserstand speichern.
-6. Pokémon trainieren.
-7. Wetter-Szene über Stadt und Open-Meteo aktualisieren.
+6. Pal trainieren.
+7. Wetter-Szene ueber Stadt und Open-Meteo aktualisieren.
 8. Logout.
 
 ## Checks
@@ -54,7 +56,8 @@ Im Ordner `frontend/`:
 npm run type-check
 npm test
 npm run lint
+npm run format:check
 npm run test:e2e
 ```
 
-Ausführliche Frontend-Doku: `frontend/README.md`.
+Ausfuehrliche Frontend-Doku: `frontend/README.md`.

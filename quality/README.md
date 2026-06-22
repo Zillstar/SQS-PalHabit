@@ -1,4 +1,4 @@
-# PokeHabit Quality Hub
+# PalHabit Quality Hub
 
 Der Quality Hub ist ein lokales, dockerisiertes Software-Qualitätssicherungs-Cockpit für die Abgabe.
 Er startet zusammen mit der App und zeigt echte Prüfergebnisse aus Backend, Frontend, Security,

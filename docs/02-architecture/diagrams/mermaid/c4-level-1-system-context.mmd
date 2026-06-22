@@ -1,7 +1,7 @@
 flowchart LR
     USER["Person: Nutzer der Self-Care App"]
-    SCS["PokeHabit: Aufgaben, Fortschritt und Pokemon-Gamification"]
-    POKEAPI["PokeAPI: Externer REST-Service für Pokemon-Daten"]
+    SCS["PalHabit: Aufgaben, Fortschritt und Pal-Gamification"]
+    WEATHER["Open-Meteo: Externer REST-Service für Wetterdaten"]
 
     USER -->|nutzt im Browser| SCS
-    SCS -->|liest Pokemon-Daten per HTTPS| POKEAPI
+    SCS -->|liest Wetterdaten per HTTPS| WEATHER

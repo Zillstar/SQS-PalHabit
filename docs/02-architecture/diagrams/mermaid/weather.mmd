@@ -1,0 +1,50 @@
+%%{init: {
+  "theme": "base",
+  "themeVariables": {
+    "fontFamily": "Inter, Arial, sans-serif",
+    "primaryColor": "#ECFEFF",
+    "primaryBorderColor": "#0891B2",
+    "primaryTextColor": "#0F172A",
+    "actorBorder": "#0891B2",
+    "actorBkg": "#CFFAFE",
+    "actorTextColor": "#0F172A",
+    "activationBorderColor": "#0891B2",
+    "activationBkgColor": "#A5F3FC",
+    "sequenceNumberColor": "#475569",
+    "signalColor": "#334155",
+    "signalTextColor": "#0F172A",
+    "noteBkgColor": "#F8FAFC",
+    "noteBorderColor": "#CBD5E1",
+    "noteTextColor": "#0F172A"
+  }
+}}%%
+
+sequenceDiagram
+    autonumber
+    actor Nutzer
+    participant FE as Angular-Frontend
+    participant BE as Spring-Boot-Backend
+    participant WS as WeatherService
+    participant OM as Open-Meteo
+
+    Note over Nutzer,FE: Frontend: Dashboard öffnen
+    Nutzer->>FE: Dashboard öffnen
+    FE->>BE: GET /api/weather
+
+    Note over BE,OM: Backend: Wetterdaten abrufen
+    activate BE
+    BE->>WS: Wetterdaten anfordern
+    activate WS
+    WS->>OM: Wetterdaten abrufen
+    activate OM
+    OM-->>WS: Wetterdaten
+    deactivate OM
+    WS->>WS: Daten normalisieren
+    WS-->>BE: Vereinfachtes Wettermodell
+    deactivate WS
+    BE-->>FE: Wetterzustand
+    deactivate BE
+
+    Note over FE,Nutzer: Frontend: Szene auswählen und anzeigen
+    FE->>FE: Hintergrund/Szene auswählen
+    FE-->>Nutzer: Dashboard mit passender Wetter-Szene anzeigen

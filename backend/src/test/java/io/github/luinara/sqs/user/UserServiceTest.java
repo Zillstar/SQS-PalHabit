@@ -412,10 +412,10 @@ class UserServiceTest {
         GameStateDto dto = userService.testMotivationDecay("tester");
 
         assertThat(dto).isNotNull();
-        assertThat(entity.getHappiness()).isEqualTo(2);
-        assertThat(entity.getPokemonXp()).isEqualTo(50);
-        assertThat(dto.getHappiness()).isEqualTo(2);
-        assertThat(dto.getGrowth()).isEqualTo(50);
+        assertThat(entity.getHappiness()).isZero();
+        assertThat(entity.getPokemonXp()).isEqualTo(40);
+        assertThat(dto.getHappiness()).isZero();
+        assertThat(dto.getGrowth()).isEqualTo(40);
         verify(userRepository).save(entity);
     }
 
@@ -423,7 +423,7 @@ class UserServiceTest {
     void testMotivationDecay_clampsAtZeroWithoutLoweringGrowth() {
         UserEntity entity = new UserEntity();
         entity.setUsername("tester");
-        entity.setHappiness(5);
+        entity.setHappiness(0);
         entity.setPokemonXp(15);
 
         when(userRepository.findByUsernameIgnoreCase("tester")).thenReturn(Optional.of(entity));

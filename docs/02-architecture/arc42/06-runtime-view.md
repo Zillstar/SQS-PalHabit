@@ -1,31 +1,59 @@
 # Laufzeitsicht
 
+Die Laufzeitsicht beschreibt zentrale dynamische Abläufe der Anwendung. Sie zeigt,
+wie Frontend, Backend, Datenbank und externe Dienste zur Laufzeit
+zusammenarbeiten. Dokumentiert werden insbesondere fachlich wichtige User-Flows,
+externe Schnittstellen und qualitätsrelevante Abläufe.
+
 ## Login und Session
 
-1. Der Nutzer öffnet die App und geht vom Splash-Screen zur Auth-Seite.
-2. Das Frontend sendet Login oder Registrierung an `/api/auth/login` bzw. `/api/auth/signup`.
-3. Das Backend prüft die Daten, aktualisiert Login-/Streak-Informationen und setzt die Session.
-4. Das Frontend lädt Tasks und Spielstand und zeigt danach das Dashboard.
+![Login und Session](../diagrams/mermaid/runtime-login-session.svg)
 
-## Quest abschließen
+[Mermaid-Quelle](../diagrams/mermaid/runtime-login-session.mmd)
 
-1. Der Nutzer klickt im Dashboard auf `Erledigen`.
-2. Die Komponente ruft `AppStateService` auf; der Service nutzt `BackendApiService`.
-3. Das Backend prüft die Session und markiert die Task für diesen Nutzer als erledigt.
-4. Punkte und Wachstum werden im Backend aktualisiert.
-5. Das Frontend lädt den Spielstand neu und zeigt Feedback an.
+Der Login-Flow stellt sicher, dass fachliche Funktionen nur für angemeldete
+Nutzer ausgeführt werden. Registrierung und Login laufen über das Backend, damit
+Authentifizierung, Session-Verwaltung und Nutzerzustand zentral kontrolliert
+werden.
 
-## Wasser und Quest-Fortschritt
+## Quest abschließen und Pal-Fortschritt aktualisieren
 
-1. Wasser-Buttons senden die gewählte Menge an `/api/user/water`.
-2. Ab dem Grenzwert kann das Backend die Wasser-Quest automatisch abschließen.
-3. Questabschluss und Wasseraktionen aktualisieren den Spielstand serverseitig.
-4. Das Frontend bekommt den aktualisierten Spielstand zurück.
+![Quest abschliessen und Pal-Fortschritt aktualisieren](../diagrams/mermaid/quest-fortschritt.svg)
 
-## Quality-Hub-Lauf
+[Mermaid-Quelle](../diagrams/mermaid/quest-fortschritt.mmd)
 
-1. `docker compose --profile quality up --build` startet App, DB, Hub und Runner.
-2. Der Runner kopiert das Repo in eine Arbeitskopie im Container.
-3. Backend-Checks, Frontend-Checks, Security-Check und Playwright laufen nacheinander.
-4. Der Runner schreibt `report.json`, Logs und HTML-Reports in `quality_output`.
-5. Der Hub liest diese Dateien und aktualisiert die Anzeige automatisch.
+Dieser Flow ist fachlich zentral, weil hier die Gamification-Logik sichtbar wird.
+Ein Klick im Frontend führt nicht nur zu einer UI-Änderung, sondern aktualisiert
+serverseitig Taskstatus, Questpunkte, Happiness und Pal-Fortschritt.
+
+## Wassertracking und automatische Quest-Aktualisierung
+
+![Wassertracking und automatische Quest-Aktualisierung](../diagrams/mermaid/watertracking.svg)
+
+[Mermaid-Quelle](../diagrams/mermaid/watertracking.mmd)
+
+Dieser Ablauf zeigt eine wichtige fachliche Ausnahme: Eine Nutzeraktion kann
+indirekt eine Quest abschließen. Die Entscheidung darüber liegt im Backend,
+damit der Spielstand konsistent bleibt und nicht allein vom Frontend abhängt.
+
+## Wetter abrufen und Hintergrund anzeigen
+
+![Wetter abrufen und Hintergrund anzeigen](../diagrams/mermaid/weather.svg)
+
+[Mermaid-Quelle](../diagrams/mermaid/weather.mmd)
+
+Die Wetter-API wird nicht direkt aus dem Browser angesprochen, sondern über das
+Backend gekapselt. Dadurch bleiben externe Schnittstellen, Fehlerbehandlung und
+mögliche API-Konfigurationen zentral im Backend. Das Frontend erhält nur ein
+vereinfachtes Wettermodell und entscheidet daraus, welche Szene angezeigt wird.
+
+## Wetter-Fehlerfall
+
+![Wetter-Fehlerfall](../diagrams/mermaid/weather-error.svg)
+
+[Mermaid-Quelle](../diagrams/mermaid/weather-error.mmd)
+
+Der Fehlerfall ist wichtig, weil externe Dienste nicht vollständig kontrolliert
+werden können. Bei Timeout oder Fehler liefert das Backend einen kontrollierten
+Fallback, sodass das Dashboard weiterhin benutzbar bleibt.
+

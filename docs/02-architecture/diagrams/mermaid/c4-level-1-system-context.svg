@@ -1,28 +1,42 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="900" height="260" viewBox="0 0 900 260" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="260" viewBox="0 0 1100 260" role="img" aria-labelledby="title desc">
   <title id="title">C4 Level 1 System Context</title>
-  <desc id="desc">System Context Diagramm für PokeHabit.</desc>
+  <desc id="desc">System Context Diagramm für PalHabit mit Open-Meteo als externem Laufzeitsystem. PalAPI ist keine Laufzeitabhängigkeit.</desc>
   <defs>
     <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
       <path d="M0,0 L0,6 L9,3 z" fill="#344054" />
     </marker>
     <style>
-      .bg{fill:#f8fafc}.box{stroke-width:2;rx:12}.person{fill:#fff0d6;stroke:#b66a00}.system{fill:#dff3ff;stroke:#1677a3}.external{fill:#f4e7ff;stroke:#7a3fb0}.title{font:700 24px Arial,sans-serif;fill:#101828}.label{font:700 16px Arial,sans-serif;fill:#101828}.small{font:13px Arial,sans-serif;fill:#475467}.arrow{stroke:#344054;stroke-width:2.2;fill:none;marker-end:url(#arrow)}
+      .bg{fill:#f8fafc}
+      .box{stroke-width:2;rx:12}
+      .person{fill:#fff0d6;stroke:#b66a00}
+      .system{fill:#dff3ff;stroke:#1677a3}
+      .external{fill:#f4e7ff;stroke:#7a3fb0}
+      .title{font:700 24px Arial,sans-serif;fill:#101828}
+      .label{font:700 16px Arial,sans-serif;fill:#101828}
+      .small{font:13px Arial,sans-serif;fill:#475467}
+      .arrow{stroke:#344054;stroke-width:2.2;fill:none;marker-end:url(#arrow)}
     </style>
   </defs>
-  <rect class="bg" width="900" height="260" />
+
+  <rect class="bg" width="1100" height="260" />
   <text x="40" y="45" class="title">Level 1: System Context</text>
-  <rect x="60" y="105" width="170" height="75" class="box person" />
-  <text x="145" y="135" text-anchor="middle" class="label">Person</text>
-  <text x="145" y="156" text-anchor="middle" class="small">Nutzer der Self-Care App</text>
-  <rect x="330" y="88" width="240" height="110" class="box system" />
-  <text x="450" y="125" text-anchor="middle" class="label">PokeHabit</text>
-  <text x="450" y="148" text-anchor="middle" class="small">Aufgaben, Fortschritt und</text>
-  <text x="450" y="168" text-anchor="middle" class="small">pet-basierte Gamification</text>
-  <rect x="680" y="105" width="160" height="75" class="box external" />
-  <text x="760" y="136" text-anchor="middle" class="label">PokeAPI</text>
-  <text x="760" y="156" text-anchor="middle" class="small">Pokemon-Daten</text>
-  <path d="M230 143 H330" class="arrow" />
-  <text x="280" y="132" text-anchor="middle" class="small">nutzt im Browser</text>
-  <path d="M570 143 H680" class="arrow" />
-  <text x="625" y="132" text-anchor="middle" class="small">HTTPS</text>
+
+  <rect x="60" y="105" width="180" height="75" class="box person" />
+  <text x="150" y="135" text-anchor="middle" class="label">Person</text>
+  <text x="150" y="156" text-anchor="middle" class="small">Nutzer der Self-Care App</text>
+
+  <rect x="440" y="87" width="250" height="110" class="box system" />
+  <text x="565" y="124" text-anchor="middle" class="label">PalHabit</text>
+  <text x="565" y="147" text-anchor="middle" class="small">Aufgaben, Fortschritt und</text>
+  <text x="565" y="167" text-anchor="middle" class="small">Pal-Gamification</text>
+
+  <rect x="890" y="105" width="180" height="75" class="box external" />
+  <text x="980" y="136" text-anchor="middle" class="label">Open-Meteo</text>
+  <text x="980" y="156" text-anchor="middle" class="small">Wetterdaten</text>
+
+  <path d="M240 143 H440" class="arrow" />
+  <text x="340" y="131" text-anchor="middle" class="small">nutzt im Browser</text>
+
+  <path d="M690 143 H890" class="arrow" />
+  <text x="790" y="131" text-anchor="middle" class="small">liest Wetterdaten per HTTPS</text>
 </svg>

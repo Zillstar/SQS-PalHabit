@@ -1,6 +1,6 @@
 # API — Benutzeraktionen: Water, Feed & Account
 
-Dieses Dokument beschreibt die Endpunkte, mit denen der Client Wasser trinken, den Pokémon-Spielstand aktualisieren und den eigenen Account löschen kann.
+Dieses Dokument beschreibt die Endpunkte, mit denen der Client Wasser trinken, den Pal-Spielstand aktualisieren und den eigenen Account löschen kann.
 
 Hinweis: Authentifizierung wie im Projektstandard (Session / USER_TOKEN) wird erwartet. Alle Zeiten und Werte verwenden UTC‑Konventionen, Responses enthalten `GameStateDto` (siehe `docs/03-api/user-game-state.md`).
 
@@ -8,7 +8,7 @@ Hinweis: Authentifizierung wie im Projektstandard (Session / USER_TOKEN) wird er
 
 - Basis‑Pfad: `/api/user`
 - Auth: erforderlich (Session/Token, wie in `AuthenticationController`) für alle Endpunkte.
-- Rückgabe: Nach erfolgreicher Aktion wird der aktuelle GameState als `GameStateDto` zurückgegeben (inkl. `waterLevel`, `pendingFeedPoints`, `happiness`, `pokemonLevel`, `pokemonImageUrl`, u.a.).
+- Rückgabe: Nach erfolgreicher Aktion wird der aktuelle GameState als `GameStateDto` zurückgegeben (inkl. `waterLevel`, `pendingFeedPoints`, `happiness`, `palLevel`, `palImageUrl`, u.a.).
 
 ## POST /api/user/water
 
@@ -48,8 +48,8 @@ Beispiel Response (auszugsweise)
   "waterLevel": 1250,
   "pendingFeedPoints": 12,
   "happiness": 40,
-  "pokemonLevel": 5,
-  "pokemonImageUrl": "/assets/charmander.png",
+  "palLevel": 5,
+  "palImageUrl": "/assets/starter-pal.png",
   "serverNow": "2026-06-13T07:12:00Z"
 }
 ```
@@ -87,7 +87,7 @@ Beispiel Response
   "waterLevel": 1250,
   "pendingFeedPoints": 15,
   "happiness": 100,
-  "pokemonLevel": 5,
+  "palLevel": 5,
   "serverNow": "2026-06-13T07:14:00Z"
 }
 ```
@@ -132,7 +132,7 @@ Beispiel Response
 {
   "happiness": 0,
   "growth": 30,
-  "pokemonLevel": 5,
+  "palLevel": 5,
   "pendingFeedPoints": 15,
   "serverNow": "2026-06-13T07:16:00Z"
 }

@@ -1,16 +1,86 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="330" viewBox="0 0 1000 330" role="img" aria-labelledby="title desc">
-  <title id="title">C4 Deployment</title>
-  <desc id="desc">Deployment Diagramm für Docker Compose, PostgreSQL und PokeAPI.</desc>
-  <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L9,3 z" fill="#344054"/></marker><style>.bg{fill:#f8fafc}.group{fill:#fff;stroke:#98a2b3;stroke-width:2;stroke-dasharray:8 6;rx:16}.box{fill:#edf7f6;stroke:#19756d;stroke-width:2;rx:12}.host{fill:#fff0d6;stroke:#b66a00;stroke-width:2;rx:12}.external{fill:#f4e7ff;stroke:#7a3fb0;stroke-width:2;rx:12}.db{fill:#fff5e8;stroke:#b65f00;stroke-width:2}.title{font:700 24px Arial,sans-serif;fill:#101828}.label{font:700 15px Arial,sans-serif;fill:#101828}.small{font:13px Arial,sans-serif;fill:#475467}.arrow{stroke:#344054;stroke-width:2.2;fill:none;marker-end:url(#arrow)}</style></defs>
-  <rect class="bg" width="1000" height="330"/><text x="40" y="45" class="title">Deployment View</text>
-  <rect x="45" y="135" width="170" height="70" class="host"/><text x="130" y="164" text-anchor="middle" class="label">Entwicklerrechner</text><text x="130" y="184" text-anchor="middle" class="small">Docker Host</text>
-  <rect x="275" y="85" width="550" height="180" class="group"/><text x="300" y="115" class="label">Docker Compose Umgebung</text>
-  <rect x="315" y="155" width="125" height="58" class="box"/><text x="377" y="178" text-anchor="middle" class="label">Frontend</text><text x="377" y="197" text-anchor="middle" class="small">Port 3000</text>
-  <rect x="515" y="155" width="125" height="58" class="box"/><text x="577" y="178" text-anchor="middle" class="label">Backend</text><text x="577" y="197" text-anchor="middle" class="small">Port 8181</text>
-  <ellipse cx="740" cy="185" rx="62" ry="34" class="db"/><text x="740" y="181" text-anchor="middle" class="label">Postgres</text><text x="740" y="200" text-anchor="middle" class="small">5432</text>
-  <rect x="865" y="155" width="100" height="58" class="external"/><text x="915" y="179" text-anchor="middle" class="label">PokeAPI</text><text x="915" y="198" text-anchor="middle" class="small">Internet</text>
-  <path d="M215 170 H315" class="arrow"/><text x="265" y="158" text-anchor="middle" class="small">localhost 3000</text>
-  <path d="M440 185 H515" class="arrow"/><text x="477" y="173" text-anchor="middle" class="small">REST</text>
-  <path d="M640 185 H678" class="arrow"/><text x="659" y="173" text-anchor="middle" class="small">JDBC</text>
-  <path d="M640 155 C700 90,845 100,895 155" class="arrow"/><text x="770" y="105" text-anchor="middle" class="small">HTTPS</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="420" viewBox="0 0 1120 420" role="img" aria-labelledby="title desc">
+    <title id="title">C4 Deployment</title>
+    <desc id="desc">Deployment Diagramm für Docker Compose, PostgreSQL, initiale Pal-Stammdaten und Open-Meteo.</desc>
+
+    <defs>
+        <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+            <path d="M0,0 L0,6 L9,3 z" fill="#344054"/>
+        </marker>
+        <style>
+            .bg{fill:#f8fafc}
+            .group{fill:#fff;stroke:#98a2b3;stroke-width:2;stroke-dasharray:8 6;rx:16}
+            .box{fill:#edf7f6;stroke:#19756d;stroke-width:2;rx:12}
+            .host{fill:#fff0d6;stroke:#b66a00;stroke-width:2;rx:12}
+            .external{fill:#f4e7ff;stroke:#7a3fb0;stroke-width:2;rx:12}
+            .seed{fill:#eef4ff;stroke:#3b5bdb;stroke-width:2;rx:12}
+            .db{fill:#fff5e8;stroke:#b65f00;stroke-width:2}
+            .title{font:700 24px Arial,sans-serif;fill:#101828}
+            .label{font:700 15px Arial,sans-serif;fill:#101828}
+            .small{font:12px Arial,sans-serif;fill:#475467}
+            .arrow{stroke:#344054;stroke-width:2.2;fill:none;marker-end:url(#arrow)}
+            .seedArrow{stroke:#667085;stroke-width:2;fill:none;stroke-dasharray:7 5;marker-end:url(#arrow)}
+        </style>
+    </defs>
+
+    <rect class="bg" width="1120" height="420"/>
+    <text x="40" y="45" class="title">Deployment View</text>
+
+    <!-- Host -->
+    <rect x="45" y="165" width="185" height="74" class="host"/>
+    <text x="137.5" y="193" text-anchor="middle" class="label">Entwicklerrechner</text>
+    <text x="137.5" y="213" text-anchor="middle" class="small">Docker Host</text>
+
+    <!-- Docker Compose group -->
+    <rect x="285" y="105" width="610" height="210" class="group"/>
+    <text x="310" y="135" class="label">Docker Compose Umgebung</text>
+
+    <!-- Frontend -->
+    <rect x="325" y="185" width="145" height="64" class="box"/>
+    <text x="397.5" y="210" text-anchor="middle" class="label">Frontend</text>
+    <text x="397.5" y="229" text-anchor="middle" class="small">Container · Port 3000</text>
+
+    <!-- Backend -->
+    <rect x="540" y="185" width="145" height="64" class="box"/>
+    <text x="612.5" y="210" text-anchor="middle" class="label">Backend</text>
+    <text x="612.5" y="229" text-anchor="middle" class="small">Container · Port 8181</text>
+
+    <!-- Postgres -->
+    <ellipse cx="795" cy="218" rx="82" ry="46" class="db"/>
+    <text x="795" y="208" text-anchor="middle" class="label">PostgreSQL</text>
+    <text x="795" y="226" text-anchor="middle" class="small">Container · Port 5432</text>
+    <text x="795" y="243" text-anchor="middle" class="small">Volume: db_data</text>
+
+    <!-- External runtime service -->
+    <rect x="955" y="235" width="125" height="64" class="external"/>
+    <text x="1017.5" y="261" text-anchor="middle" class="label">Open-Meteo</text>
+    <text x="1017.5" y="280" text-anchor="middle" class="small">Internet</text>
+
+    <!-- Seed / PalAPI -->
+    <rect x="540" y="335" width="170" height="64" class="seed"/>
+    <text x="625" y="360" text-anchor="middle" class="label">Seed / Migration</text>
+    <text x="625" y="379" text-anchor="middle" class="small">Pal-Stammdaten</text>
+
+    <rect x="300" y="335" width="165" height="64" class="external"/>
+    <text x="382.5" y="360" text-anchor="middle" class="label">PalAPI</text>
+    <text x="382.5" y="379" text-anchor="middle" class="small">ursprüngliche Datenquelle</text>
+
+    <!-- Runtime arrows -->
+    <path d="M230 202 H325" class="arrow"/>
+    <text x="277.5" y="190" text-anchor="middle" class="small">localhost:3000</text>
+
+    <path d="M470 217 H540" class="arrow"/>
+    <text x="505" y="205" text-anchor="middle" class="small">REST / backend:8181</text>
+
+    <path d="M685 217 H713" class="arrow"/>
+    <text x="699" y="205" text-anchor="middle" class="small">JDBC</text>
+
+    <path d="M685 240 C760 290,875 290,955 267" class="arrow"/>
+    <text x="835" y="306" text-anchor="middle" class="small">HTTPS JSON / Runtime</text>
+
+    <!-- Seed arrows -->
+    <path d="M465 367 H540" class="seedArrow"/>
+    <text x="502.5" y="355" text-anchor="middle" class="small">Datenbasis</text>
+
+    <path d="M710 367 C780 367,795 315,795 264" class="seedArrow"/>
+    <text x="832" y="350" text-anchor="middle" class="small">befüllt pal-Tabellen</text>
 </svg>

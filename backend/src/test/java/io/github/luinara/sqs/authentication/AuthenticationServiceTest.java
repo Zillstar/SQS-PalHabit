@@ -443,17 +443,17 @@ class AuthenticationServiceTest {
         verify(repo).save(captor.capture());
         UserEntity saved = captor.getValue();
         assertThat(saved.getStreak()).isEqualTo(1);
-        assertThat(saved.getPokemonLevel()).isEqualTo(7);
-        assertThat(saved.getPokemonXp()).isZero();
-        assertThat(saved.getHappiness()).isEqualTo(35);
+        assertThat(saved.getPokemonLevel()).isEqualTo(8);
+        assertThat(saved.getPokemonXp()).isEqualTo(50);
+        assertThat(saved.getHappiness()).isEqualTo(20);
         assertThat(saved.getHydrationMl()).isEqualTo(1800);
-        assertThat(saved.getLastLevelUpAt()).isNull();
+        assertThat(saved.getLastLevelUpAt()).isEqualTo(OffsetDateTime.parse("2026-06-13T10:00:00Z"));
         assertThat(saved.getLastLoginAt()).isEqualTo(OffsetDateTime.parse("2026-06-16T10:00:00Z"));
         verify(userTaskRepository, never()).resetCompletionsByUserId(any());
     }
 
     @Test
-    void db_login_clampsMotivationAtZeroWithoutLoweringGrowth() {
+    void db_login_clampsMotivationAtZeroAndAppliesXpPenalty() {
         BCryptPasswordEncoder enc = new BCryptPasswordEncoder();
         String hash = enc.encode("password123");
         Clock fixedClock = Clock.fixed(Instant.parse("2026-06-16T10:00:00Z"), ZoneOffset.UTC);
@@ -481,7 +481,7 @@ class AuthenticationServiceTest {
         UserEntity saved = captor.getValue();
         assertThat(saved.getPokemonLevel()).isEqualTo(1);
         assertThat(saved.getHappiness()).isZero();
-        assertThat(saved.getPokemonXp()).isEqualTo(30);
+        assertThat(saved.getPokemonXp()).isEqualTo(20);
     }
 
     @Test

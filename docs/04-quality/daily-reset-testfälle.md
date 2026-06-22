@@ -26,7 +26,7 @@ Der Service-Test `backend/src/test/java/io/github/luinara/sqs/user/UserServiceTe
 * Erwartet wird, dass `waterLevel` auf `0` fällt, `lastDailyResetAt` gesetzt wird, `resetCompletionsByUserId(...)` aufgerufen wird und der User gespeichert wird.
 * `getGameState_doesNotResetAgain_beforeNextInterval` prüft den Gegenfall: Nach einem Reset um `10:01:00Z` darf bei `10:01:30Z` noch kein weiterer Reset passieren.
 
-Damit ist die Backend-Regel für `pokehabit.daily-reset-interval=PT1M` automatisiert abgesichert, ohne im Test real eine Minute warten zu müssen.
+Damit ist die Backend-Regel für `palhabit.daily-reset-interval=PT1M` automatisiert abgesichert, ohne im Test real eine Minute warten zu müssen.
 
 ### Browser-E2E
 
@@ -55,7 +55,7 @@ npm run test:e2e -- daily-reset.spec.ts
 Manueller Kurztest ohne 24 Stunden Wartezeit:
 
 * Automatisiert: den obigen Playwright-Test starten. Er mockt den abgelaufenen Reset und prüft den sichtbaren Browserzustand.
-* Echte App lokal: Backend nur temporär mit `pokehabit.daily-reset-interval=PT1M` starten, im Dashboard eine Quest oder Wasser erledigen, mindestens eine Minute warten und den Auto-Refresh abwarten.
+* Echte App lokal: Backend nur temporär mit `palhabit.daily-reset-interval=PT1M` starten, im Dashboard eine Quest oder Wasser erledigen, mindestens eine Minute warten und den Auto-Refresh abwarten.
 * Das Dashboard fragt den Spielstand regelmäßig neu ab; dadurch wird der Reset kurz nach Ablauf des Intervalls sichtbar, ohne dass der User neu einloggen muss.
 * Wichtig: Die eingecheckte Dev-Konfiguration bleibt auf `PT24H`.
 
@@ -88,7 +88,7 @@ Manueller Kurztest ohne 24 Stunden Wartezeit:
 **Vorbedingung**
 
 * User hat am Vortag oder vor dem temporär gesetzten Kurztest-Intervall Tasks abgeschlossen.
-* Backend ist für den manuellen Kurztest temporär z. B. mit `pokehabit.daily-reset-interval=PT1M` konfiguriert.
+* Backend ist für den manuellen Kurztest temporär z. B. mit `palhabit.daily-reset-interval=PT1M` konfiguriert.
 * Seit dem letzten Reset-Anker ist mindestens das konfigurierte Intervall vergangen.
 
 **Schritte**

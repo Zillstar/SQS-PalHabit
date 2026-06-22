@@ -30,7 +30,8 @@ public class UserService {
     private static final int WATER_GOAL_ML = 3000;
     private static final int FIRST_EVOLUTION_LEVEL = 15;
     private static final int FINAL_EVOLUTION_LEVEL = 35;
-    private static final int HAPPINESS_DECAY_PER_MISSED_DAY = 10;
+    private static final int HAPPINESS_DECAY_PER_MISSED_DAY = 25;
+    private static final int XP_PENALTY_PER_MOTIVATION_DECAY = 10;
     private static final Duration DEFAULT_DAILY_RESET_INTERVAL = Duration.ofHours(24);
 
     private final UserRepository userRepository;
@@ -270,6 +271,10 @@ public class UserService {
         int currentHappiness = user.getHappiness();
 
         user.setHappiness(Math.max(0, currentHappiness - motivationLoss));
+
+        if (currentHappiness > 0) {
+            user.setPokemonXp(Math.max(0, user.getPokemonXp() - XP_PENALTY_PER_MOTIVATION_DECAY));
+        }
     }
 
     private void applyDailyResetIfDue(UserEntity user, OffsetDateTime nowUtc) {

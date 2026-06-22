@@ -6,7 +6,7 @@ Akzeptiert
 
 ## Kontext
 
-Das Projekt benötigt ein reproduzierbares Datenbankschema und automatisierten Import von Pokémon-Daten.
+Das Projekt benötigt ein reproduzierbares Datenbankschema und automatisierten Import von Pal-Daten.
 
 ## Alternativen
 
@@ -25,7 +25,7 @@ Prisma wird nicht als Runtime-Persistenzschicht verwendet. Runtime-Zugriff wird 
 
 * Das Datenbankschema ist versioniert.
 * Teammitglieder können die Datenbank konsistent neu erstellen.
-* Pokémon-Daten können automatisch durch Seed-Skripte importiert werden.
+* Pal-Daten können automatisch durch Seed-Skripte importiert werden.
 
 ## Nachteile
 

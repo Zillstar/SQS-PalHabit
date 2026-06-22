@@ -1,31 +1,90 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="360" viewBox="0 0 1000 360" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" width="1160" height="460" viewBox="0 0 1160 460" role="img" aria-labelledby="title desc">
   <title id="title">C4 Level 2 Container</title>
-  <desc id="desc">Container Diagramm für Frontend, Backend, Datenbank und PokeAPI.</desc>
+  <desc id="desc">Container Diagramm für Frontend, Backend, PostgreSQL, Open-Meteo und initiale Pal-Stammdaten. PalAPI ist keine Laufzeitabhängigkeit.</desc>
+
   <defs>
-    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L9,3 z" fill="#344054"/></marker>
-    <style>.bg{fill:#f8fafc}.group{fill:#fff;stroke:#98a2b3;stroke-width:2;stroke-dasharray:8 6;rx:16}.box{stroke-width:2;rx:12}.person{fill:#fff0d6;stroke:#b66a00}.container{fill:#e7f8ef;stroke:#138a4e}.external{fill:#f4e7ff;stroke:#7a3fb0}.db{fill:#fff5e8;stroke:#b65f00;stroke-width:2}.title{font:700 24px Arial,sans-serif;fill:#101828}.label{font:700 15px Arial,sans-serif;fill:#101828}.small{font:13px Arial,sans-serif;fill:#475467}.arrow{stroke:#344054;stroke-width:2.2;fill:none;marker-end:url(#arrow)}</style>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#344054"/>
+    </marker>
+
+    <style>
+      .bg{fill:#f8fafc}
+      .group{fill:#fff;stroke:#98a2b3;stroke-width:2;stroke-dasharray:8 6;rx:16}
+      .box{stroke-width:2;rx:12}
+      .person{fill:#fff0d6;stroke:#b66a00}
+      .frontend{fill:#e7f8ef;stroke:#138a4e}
+      .backend{fill:#e8f1ff;stroke:#0d6efd}
+      .external{fill:#f4e7ff;stroke:#7a3fb0}
+      .seed{fill:#eef4ff;stroke:#3b5bdb}
+      .db{fill:#fff5e8;stroke:#b65f00;stroke-width:2}
+      .title{font:700 24px Arial,sans-serif;fill:#101828}
+      .label{font:700 15px Arial,sans-serif;fill:#101828}
+      .small{font:13px Arial,sans-serif;fill:#475467}
+      .arrow{stroke:#344054;stroke-width:2.2;fill:none;marker-end:url(#arrow)}
+      .seedArrow{stroke:#667085;stroke-width:2;fill:none;stroke-dasharray:7 5;marker-end:url(#arrow)}
+    </style>
   </defs>
-  <rect class="bg" width="1000" height="360"/>
+
+  <rect class="bg" width="1160" height="460"/>
   <text x="40" y="45" class="title">Level 2: Container</text>
-  <rect x="40" y="145" width="135" height="70" class="box person"/>
-  <text x="107" y="176" text-anchor="middle" class="label">Nutzer</text>
-  <text x="107" y="196" text-anchor="middle" class="small">Browser</text>
-  <rect x="245" y="85" width="560" height="190" class="group"/>
-  <text x="270" y="115" class="label">PokeHabit</text>
-  <rect x="285" y="160" width="135" height="65" class="box container"/>
-  <text x="352" y="186" text-anchor="middle" class="label">Frontend</text>
-  <text x="352" y="206" text-anchor="middle" class="small">Angular SPA</text>
-  <rect x="495" y="160" width="145" height="65" class="box container"/>
-  <text x="567" y="186" text-anchor="middle" class="label">Backend API</text>
-  <text x="567" y="206" text-anchor="middle" class="small">Spring Boot</text>
-  <ellipse cx="735" cy="193" rx="62" ry="36" class="db"/>
-  <text x="735" y="189" text-anchor="middle" class="label">PostgreSQL</text>
-  <text x="735" y="209" text-anchor="middle" class="small">Daten</text>
-  <rect x="855" y="160" width="105" height="65" class="box external"/>
-  <text x="907" y="186" text-anchor="middle" class="label">PokeAPI</text>
-  <text x="907" y="206" text-anchor="middle" class="small">REST</text>
-  <path d="M175 180 H285" class="arrow"/><text x="230" y="168" text-anchor="middle" class="small">HTTPS</text>
-  <path d="M420 193 H495" class="arrow"/><text x="457" y="181" text-anchor="middle" class="small">REST JSON</text>
-  <path d="M640 193 H673" class="arrow"/><text x="657" y="181" text-anchor="middle" class="small">JPA</text>
-  <path d="M640 163 C705 90,830 100,885 160" class="arrow"/><text x="765" y="105" text-anchor="middle" class="small">HTTPS JSON</text>
+
+  <!-- User -->
+  <rect x="40" y="140" width="135" height="70" class="box person"/>
+  <text x="107" y="171" text-anchor="middle" class="label">Nutzer</text>
+  <text x="107" y="191" text-anchor="middle" class="small">Browser</text>
+
+  <!-- PalAPI under user -->
+  <rect x="40" y="285" width="135" height="70" class="box external"/>
+  <text x="107" y="313" text-anchor="middle" class="label">PalAPI</text>
+  <text x="107" y="333" text-anchor="middle" class="small">Datenquelle</text>
+
+  <!-- PalHabit boundary -->
+  <rect x="245" y="85" width="690" height="285" class="group"/>
+  <text x="270" y="115" class="label">PalHabit</text>
+
+  <!-- Frontend -->
+  <rect x="290" y="180" width="145" height="70" class="box frontend"/>
+  <text x="362" y="208" text-anchor="middle" class="label">Frontend</text>
+  <text x="362" y="228" text-anchor="middle" class="small">Angular SPA</text>
+
+  <!-- Backend -->
+  <rect x="510" y="180" width="155" height="70" class="box backend"/>
+  <text x="587" y="208" text-anchor="middle" class="label">Backend API</text>
+  <text x="587" y="228" text-anchor="middle" class="small">Spring Boot</text>
+
+  <!-- PostgreSQL -->
+  <ellipse cx="810" cy="215" rx="82" ry="44" class="db"/>
+  <text x="810" y="205" text-anchor="middle" class="label">PostgreSQL</text>
+  <text x="810" y="225" text-anchor="middle" class="small">Persistenz</text>
+  <text x="810" y="243" text-anchor="middle" class="small">Port 5432</text>
+
+  <!-- Seed / Migration -->
+  <rect x="535" y="290" width="190" height="58" class="box seed"/>
+  <text x="630" y="314" text-anchor="middle" class="label">Seed / Migration</text>
+  <text x="630" y="333" text-anchor="middle" class="small">Pal-Stammdaten</text>
+
+  <!-- Open-Meteo -->
+  <rect x="995" y="245" width="130" height="70" class="box external"/>
+  <text x="1060" y="273" text-anchor="middle" class="label">Open-Meteo</text>
+  <text x="1060" y="293" text-anchor="middle" class="small">Wetter-API</text>
+
+  <!-- Runtime arrows -->
+  <path d="M175 175 H290" class="arrow"/>
+  <text x="232" y="163" text-anchor="middle" class="small">HTTPS / Browser</text>
+
+  <path d="M435 215 H510" class="arrow"/>
+  <text x="472" y="203" text-anchor="middle" class="small">REST JSON</text>
+
+  <path d="M665 215 H728" class="arrow"/>
+  <text x="696" y="203" text-anchor="middle" class="small">JPA / JDBC</text>
+
+  <path d="M665 240 C745 300,875 300,995 280" class="arrow"/>
+  <text x="840" y="322" text-anchor="middle" class="small">HTTPS JSON / Runtime</text>
+
+  <!-- Seed arrows -->
+  <path d="M175 320 C290 320,410 320,535 319" class="seedArrow"/>
+  <text x="355" y="307" text-anchor="middle" class="small">Datenbasis, nicht Runtime</text>
+
+  <path d="M725 319 C775 319,810 285,810 259" class="seedArrow"/>
+  <text x="850" y="342" text-anchor="middle" class="small">befüllt pal-Tabellen</text>
 </svg>

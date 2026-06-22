@@ -4,12 +4,17 @@ flowchart LR
     subgraph COMPOSE["Docker Compose Umgebung"]
         FE["Frontend Container: Port 3000"]
         BE["Backend Container: Port 8181"]
-        PG[(PostgreSQL Container: Port 5432, Volume db_data)]
+        PG["PostgreSQL Container: Port 5432, Volume db_data"]
     end
 
-    POKEAPI["PokeAPI: Internet"]
+    SEED["Seed / Migration: Pal-Stammdaten"]
+    PALAPI["PalAPI: ursprüngliche Datenquelle"]
+    WEATHER["Open-Meteo: Internet"]
 
-    DEV -->|localhost 3000| FE
-    FE -->|backend 8181 REST| BE
-    BE -->|jdbc postgresql db 5432 sqs_db| PG
-    BE -->|HTTPS| POKEAPI
+    DEV -->|localhost:3000| FE
+    FE -->|REST / backend:8181| BE
+    BE -->|JDBC / postgresql://db:5432/sqs_db| PG
+    BE -->|HTTPS JSON / Runtime| WEATHER
+
+    PALAPI -.->|Datenbasis, nicht Runtime| SEED
+    SEED -.->|befüllt pal-Tabellen| PG

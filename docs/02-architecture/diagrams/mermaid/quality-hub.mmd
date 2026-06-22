@@ -1,0 +1,49 @@
+%%{init: {
+  "theme": "base",
+  "themeVariables": {
+    "fontFamily": "Inter, Arial, sans-serif",
+    "primaryColor": "#F5F3FF",
+    "primaryBorderColor": "#7C3AED",
+    "primaryTextColor": "#0F172A",
+    "actorBorder": "#7C3AED",
+    "actorBkg": "#EDE9FE",
+    "actorTextColor": "#0F172A",
+    "activationBorderColor": "#7C3AED",
+    "activationBkgColor": "#DDD6FE",
+    "sequenceNumberColor": "#475569",
+    "signalColor": "#334155",
+    "signalTextColor": "#0F172A",
+    "noteBkgColor": "#F8FAFC",
+    "noteBorderColor": "#CBD5E1",
+    "noteTextColor": "#0F172A"
+  }
+}}%%
+
+sequenceDiagram
+    autonumber
+    actor Entwickler
+    participant DC as Docker Compose
+    participant Runner as Quality Runner
+    participant Repo as Projektdateien
+    participant Out as quality_output
+    participant Hub as Quality Hub
+
+    Note over Entwickler,DC: Start des Quality-Profils
+    Entwickler->>DC: docker compose --profile quality up --build
+    DC->>Runner: Runner starten
+    DC->>Hub: Hub starten
+
+    Note over Runner,Repo: Quality Runner führt Checks aus
+    activate Runner
+    Runner->>Repo: Repository in Arbeitskopie kopieren
+    Runner->>Runner: Backend-Checks ausführen
+    Runner->>Runner: Frontend-Checks ausführen
+    Runner->>Runner: Security-Checks ausführen
+    Runner->>Runner: Playwright-E2E-Tests ausführen
+    Runner->>Out: report.json, Logs und HTML-Reports schreiben
+    deactivate Runner
+
+    Note over Hub,Out: Ergebnisse im Hub anzeigen
+    Hub->>Out: Ergebnisse lesen
+    Out-->>Hub: Status, Logs und Reports
+    Hub-->>Entwickler: Score, Checkliste und Reports anzeigen

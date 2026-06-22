@@ -193,11 +193,12 @@ public class WeatherService {
         }
 
         if (result.elevation() != null) {
-            score += Math.max(0, 1000 - result.elevation()) / 10;
+            score += Math.max(0.0, 1000.0 - result.elevation()) / 10.0;
         }
 
         if (result.population() != null) {
-            score += Math.min(result.population(), 10_000_000) / 10_000;
+            double population = result.population().doubleValue();
+            score += Math.min(population, 10_000_000.0) / 10_000.0;
         }
 
         return score - index;

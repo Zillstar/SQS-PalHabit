@@ -10,20 +10,20 @@ Die E2E-Tests laufen separat mit Playwright.
 
 ## Wichtige Dateien
 
-| Datei / Ordner | Bedeutung |
-| --- | --- |
-| `frontend/vitest.config.ts` | Zentrale Vitest-Konfiguration |
-| `tests/unit/setup.ts` | Gemeinsames Test-Setup für Unit-Tests |
-| `tests/unit/frontend/*.test.ts` | Frontend-Unit-Tests |
-| `frontend/coverage/` | Generierte Coverage-Reports |
+| Datei / Ordner                  | Bedeutung                             |
+|---------------------------------|---------------------------------------|
+| `frontend/vitest.config.ts`     | Zentrale Vitest-Konfiguration         |
+| `tests/unit/setup.ts`           | Gemeinsames Test-Setup für Unit-Tests |
+| `tests/unit/frontend/*.test.ts` | Frontend-Unit-Tests                   |
+| `frontend/coverage/`            | Generierte Coverage-Reports           |
 
 ## Aktuelle Testdateien
 
-| Testdatei | Prüft |
-| --- | --- |
-| `tests/unit/frontend/app-state.logic.test.ts` | Login-Logik, Registrierung, Task-Abschluss, Pet-Füttern und Reset |
-| `tests/unit/frontend/browser-storage.service.test.ts` | Lesen und Schreiben von JSON-Daten im `localStorage` |
-| `tests/unit/frontend/mock-data.test.ts` | Initiale Demo-Daten, E-Mail-Normalisierung und Wachstumsregeln |
+| Testdatei                                             | Prüft                                                             |
+|-------------------------------------------------------|-------------------------------------------------------------------|
+| `tests/unit/frontend/app-state.logic.test.ts`         | Login-Logik, Registrierung, Task-Abschluss, Pet-Füttern und Reset |
+| `tests/unit/frontend/browser-storage.service.test.ts` | Lesen und Schreiben von JSON-Daten im `localStorage`              |
+| `tests/unit/frontend/mock-data.test.ts`               | Initiale Demo-Daten, E-Mail-Normalisierung und Wachstumsregeln    |
 
 ## Befehle
 

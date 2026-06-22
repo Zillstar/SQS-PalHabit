@@ -6,7 +6,7 @@ Accepted
 
 ## Context
 
-The project requires a reproducible database schema and automated import of Pokémon data.
+The project requires a reproducible database schema and automated import of Pal data.
 
 ## Alternatives
 
@@ -25,7 +25,7 @@ Prisma is not used as the runtime persistence layer. Runtime access is handled b
 
 * Database schema is version-controlled.
 * Team members can recreate the database consistently.
-* Pokémon data can be imported automatically through seed scripts.
+* Pal data can be imported automatically through seed scripts.
 
 ## Downsides
 

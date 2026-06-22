@@ -40,5 +40,4 @@ export class QualityGateCardComponent {
   );
   readonly missingRequiredTasks = computed(() => getMissingRequiredTasks(this.tasks()));
   readonly gateReached = computed(() => this.qualityScore() >= this.qualityTarget());
-  readonly visibleTasks = computed(() => this.tasks().slice(0, 5));
 }

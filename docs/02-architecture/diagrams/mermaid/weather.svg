@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1580" height="1220" viewBox="0 0 1580 1220" role="img" aria-label="Sequenzdiagramm Wetter abrufen und Hintergrund anzeigen">
+    <defs>
+        <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+            <path d="M2,2 L10,6 L2,10 Z" fill="#334155"/>
+        </marker>
+        <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+            <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#0f172a" flood-opacity="0.12"/>
+        </filter>
+    </defs>
+    <rect width="1580" height="1220" fill="#FFFFFF"/>
+
+    <text x="790.0" y="54" text-anchor="middle" font-size="30" font-weight="700" fill="#0F172A" font-family="Inter, Arial, sans-serif">Wetter abrufen und Hintergrund anzeigen</text>
+    <text x="790.0" y="88" text-anchor="middle" font-size="17" font-weight="400" fill="#475569" font-family="Inter, Arial, sans-serif">Laufzeitsicht: Wetterdaten über das Backend abrufen und im Frontend als Szene darstellen</text>
+    <rect x="55" y="205" width="430" height="52" rx="14" fill="#ECFEFF" stroke="#A5F3FC" stroke-width="1.4" />
+    <text x="270.0" y="237" text-anchor="middle" font-size="15" font-weight="700" fill="#334155" font-family="Inter, Arial, sans-serif">Frontend: Dashboard öffnen</text>
+    <rect x="660" y="430" width="770" height="52" rx="14" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.4" />
+    <text x="1045.0" y="462" text-anchor="middle" font-size="15" font-weight="700" fill="#334155" font-family="Inter, Arial, sans-serif">Backend: Wetterdaten abrufen und vereinfachen</text>
+    <rect x="250" y="990" width="520" height="52" rx="14" fill="#F0FDF4" stroke="#BBF7D0" stroke-width="1.4" />
+    <text x="510.0" y="1022" text-anchor="middle" font-size="15" font-weight="700" fill="#334155" font-family="Inter, Arial, sans-serif">Frontend: passende Szene auswählen</text>
+    <g filter="url(#shadow)">
+        <rect x="15.0" y="125" width="210" height="56" rx="14" fill="#CFFAFE" stroke="#0891B2" stroke-width="2" />
+    </g>
+    <text x="120" y="160" text-anchor="middle" font-size="15" font-weight="700" fill="#0F172A" font-family="Inter, Arial, sans-serif">Nutzer</text>
+    <line x1="120" y1="181" x2="120" y2="1155" stroke="#94A3B8" stroke-width="2" stroke-dasharray="10 8" />
+    <g filter="url(#shadow)">
+        <rect x="315.0" y="125" width="210" height="56" rx="14" fill="#CFFAFE" stroke="#0891B2" stroke-width="2" />
+    </g>
+    <text x="420" y="160" text-anchor="middle" font-size="15" font-weight="700" fill="#0F172A" font-family="Inter, Arial, sans-serif">Angular-Frontend</text>
+    <line x1="420" y1="181" x2="420" y2="1155" stroke="#94A3B8" stroke-width="2" stroke-dasharray="10 8" />
+    <g filter="url(#shadow)">
+        <rect x="655.0" y="125" width="210" height="56" rx="14" fill="#CFFAFE" stroke="#0891B2" stroke-width="2" />
+    </g>
+    <text x="760" y="160" text-anchor="middle" font-size="15" font-weight="700" fill="#0F172A" font-family="Inter, Arial, sans-serif">Spring-Boot-Backend</text>
+    <line x1="760" y1="181" x2="760" y2="1155" stroke="#94A3B8" stroke-width="2" stroke-dasharray="10 8" />
+    <g filter="url(#shadow)">
+        <rect x="975.0" y="125" width="210" height="56" rx="14" fill="#CFFAFE" stroke="#0891B2" stroke-width="2" />
+    </g>
+    <text x="1080" y="160" text-anchor="middle" font-size="15" font-weight="700" fill="#0F172A" font-family="Inter, Arial, sans-serif">WeatherService</text>
+    <line x1="1080" y1="181" x2="1080" y2="1155" stroke="#94A3B8" stroke-width="2" stroke-dasharray="10 8" />
+    <g filter="url(#shadow)">
+        <rect x="1305.0" y="125" width="210" height="56" rx="14" fill="#CFFAFE" stroke="#0891B2" stroke-width="2" />
+    </g>
+    <text x="1410" y="160" text-anchor="middle" font-size="15" font-weight="700" fill="#0F172A" font-family="Inter, Arial, sans-serif">Open-Meteo</text>
+    <line x1="1410" y1="181" x2="1410" y2="1155" stroke="#94A3B8" stroke-width="2" stroke-dasharray="10 8" />
+    <rect x="748" y="355" width="24" height="585" rx="6" fill="#A5F3FC" stroke="#0891B2" stroke-width="1.3" />
+    <rect x="1068" y="505" width="24" height="350" rx="6" fill="#CFFAFE" stroke="#0891B2" stroke-width="1.3" />
+    <rect x="1398" y="585" width="24" height="80" rx="6" fill="#CFFAFE" stroke="#0891B2" stroke-width="1.3" />
+    <line x1="120" y1="275" x2="420" y2="275" stroke="#334155" stroke-width="2.2"  marker-end="url(#arrow)" />
+    <rect x="191.6" y="235" width="156.8" height="28" rx="10" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.0" />
+    <text x="270.0" y="251" text-anchor="middle" font-size="14" font-weight="500" fill="#0F172A" font-family="Inter, Arial, sans-serif"><tspan x="270.0" dy="0">1. Dashboard öffnen</tspan></text>
+    <line x1="420" y1="355" x2="760" y2="355" stroke="#334155" stroke-width="2.2"  marker-end="url(#arrow)" />
+    <rect x="511.6" y="315" width="156.8" height="28" rx="10" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.0" />
+    <text x="590.0" y="331" text-anchor="middle" font-size="14" font-weight="500" fill="#0F172A" font-family="Inter, Arial, sans-serif"><tspan x="590.0" dy="0">2. GET /api/weather</tspan></text>
+    <line x1="760" y1="505" x2="1080" y2="505" stroke="#334155" stroke-width="2.2"  marker-end="url(#arrow)" />
+    <rect x="823.6" y="465" width="192.8" height="28" rx="10" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.0" />
+    <text x="920.0" y="481" text-anchor="middle" font-size="14" font-weight="500" fill="#0F172A" font-family="Inter, Arial, sans-serif"><tspan x="920.0" dy="0">3. Wetterdaten anfordern</tspan></text>
+    <line x1="1080" y1="585" x2="1410" y2="585" stroke="#334155" stroke-width="2.2"  marker-end="url(#arrow)" />
+    <rect x="1155.8" y="545" width="178.4" height="28" rx="10" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.0" />
+    <text x="1245.0" y="561" text-anchor="middle" font-size="14" font-weight="500" fill="#0F172A" font-family="Inter, Arial, sans-serif"><tspan x="1245.0" dy="0">4. Wetterdaten abrufen</tspan></text>
+    <line x1="1410" y1="665" x2="1080" y2="665" stroke="#334155" stroke-width="2.2" stroke-dasharray="8 8" marker-end="url(#arrow)" />
+    <rect x="1184.6" y="625" width="120.8" height="28" rx="10" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.0" />
+    <text x="1245.0" y="641" text-anchor="middle" font-size="14" font-weight="500" fill="#0F172A" font-family="Inter, Arial, sans-serif"><tspan x="1245.0" dy="0">5. Wetterdaten</tspan></text>
+    <path d="M1092,760 H1330 V804 H1098" fill="none" stroke="#334155" stroke-width="2.2" marker-end="url(#arrow)" />
+    <rect x="1123.8" y="720" width="178.4" height="28" rx="10" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.0" />
+    <text x="1213.0" y="736" text-anchor="middle" font-size="14" font-weight="500" fill="#0F172A" font-family="Inter, Arial, sans-serif"><tspan x="1213.0" dy="0">6. Daten normalisieren</tspan></text>
+    <line x1="1080" y1="855" x2="760" y2="855" stroke="#334155" stroke-width="2.2" stroke-dasharray="8 8" marker-end="url(#arrow)" />
+    <rect x="805.6" y="815" width="228.8" height="28" rx="10" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.0" />
+    <text x="920.0" y="831" text-anchor="middle" font-size="14" font-weight="500" fill="#0F172A" font-family="Inter, Arial, sans-serif"><tspan x="920.0" dy="0">7. Vereinfachtes Wettermodell</tspan></text>
+    <line x1="760" y1="935" x2="420" y2="935" stroke="#334155" stroke-width="2.2" stroke-dasharray="8 8" marker-end="url(#arrow)" />
+    <rect x="522.4" y="895" width="135.2" height="28" rx="10" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.0" />
+    <text x="590.0" y="911" text-anchor="middle" font-size="14" font-weight="500" fill="#0F172A" font-family="Inter, Arial, sans-serif"><tspan x="590.0" dy="0">8. Wetterzustand</tspan></text>
+    <path d="M432,1060 H735 V1104 H438" fill="none" stroke="#334155" stroke-width="2.2" marker-end="url(#arrow)" />
+    <rect x="467.5" y="1020" width="236.0" height="28" rx="10" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.0" />
+    <text x="585.5" y="1036" text-anchor="middle" font-size="14" font-weight="500" fill="#0F172A" font-family="Inter, Arial, sans-serif"><tspan x="585.5" dy="0">9. Hintergrund/Szene auswählen</tspan></text>
+    <line x1="420" y1="1150" x2="120" y2="1150" stroke="#334155" stroke-width="2.2" stroke-dasharray="8 8" marker-end="url(#arrow)" />
+    <rect x="134.0" y="1110" width="272.0" height="46" rx="10" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.0" />
+    <text x="270.0" y="1126" text-anchor="middle" font-size="14" font-weight="500" fill="#0F172A" font-family="Inter, Arial, sans-serif"><tspan x="270.0" dy="0">10. Dashboard mit passender Wetter-</tspan><tspan x="270.0" dy="18">Szene anzeigen</tspan></text>
+    <rect x="330" y="1158" width="920" height="46" rx="14" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.4" />
+    <text x="790" y="1188" text-anchor="middle" font-size="15" font-weight="600" fill="#334155" font-family="Inter, Arial, sans-serif">Das Frontend spricht nur das Backend an; Open-Meteo wird zentral über den WeatherService gekapselt.</text>
+</svg>

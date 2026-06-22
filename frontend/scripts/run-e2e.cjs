@@ -101,7 +101,7 @@ function requestRoot() {
 
 function runPlaywright() {
   return new Promise((resolve) => {
-    const child = spawn(playwrightBin, ['playwright', 'test', '--reporter=line'], {
+    const child = spawn(playwrightBin, ['playwright', 'test'], {
       cwd: process.cwd(),
       env: {
         ...process.env,

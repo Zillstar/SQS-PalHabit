@@ -1,29 +1,32 @@
-# PokeHabit Wiki
+# PalHabit Wiki
 
-PokeHabit ist die SQS-Semesterarbeit als Web-App mit Angular-Frontend,
-Spring-Boot-Backend, PostgreSQL und lokalem Quality Hub.
+PalHabit ist die SQS-Semesterarbeit als gamifizierte Self-Care-Web-App. Der
+Stack besteht aus Angular, Spring Boot, PostgreSQL, Docker Compose und einem
+lokalen Quality Hub fuer die Abgabe-Nachweise.
 
-Dieses Wiki ist der schnelle Einstieg für Review, Abgabe und Präsentation.
-Die ausführliche technische Dokumentation bleibt parallel unter `docs/` und
-wird über MkDocs/ReadTheDocs gebaut.
+Dieses Wiki ist der schnelle Einstieg fuer Review, Abgabe und Praesentation. Die
+ausfuehrliche technische Dokumentation liegt parallel unter `docs/` und wird mit
+MkDocs/ReadTheDocs gebaut.
 
 ## Schnellstart
+
+App, Backend und Datenbank:
 
 ```bash
 docker compose up --build
 ```
 
-Mit Quality Hub:
+App plus Quality Hub:
 
 ```bash
 docker compose --profile quality up --build
 ```
 
-| Dienst | URL |
-| --- | --- |
-| App | `http://localhost:3000` |
-| Backend | `http://localhost:8181` |
-| Quality Hub | `http://localhost:8088` |
+| Dienst | URL | Zweck |
+| --- | --- | --- |
+| App | `http://localhost:3000` | Benutzeroberflaeche |
+| Backend | `http://localhost:8181` | REST API |
+| Quality Hub | `http://localhost:8088` | Tests, Coverage, Security und E2E |
 
 Demo-Login:
 
@@ -31,23 +34,25 @@ Demo-Login:
 demo / password123
 ```
 
+## Wichtig fuer die Bewertung
+
+- Dreischichtige Web-App: Frontend, Backend und Persistenz.
+- Oeffentlicher Endpunkt: `GET /api/tasks`.
+- Geschuetzte Nutzer-Endpunkte mit serverseitiger Session.
+- Externe Integrationen: PalAPI und Open-Meteo.
+- Nachweise: Unit-, Controller-, Integrations-, Architektur-, Security- und
+  E2E-Tests.
+- Quality Hub als sichtbares SQS-Dashboard.
+- arc42, ADRs und C4-Diagramme unter `docs/`.
+
 ## Einstiegspunkte
 
-| Thema | Wiki-Seite | Ausführliche Doku |
+| Thema | Wiki-Seite | Ausfuehrliche Doku |
 | --- | --- | --- |
 | Architektur | [Architektur](Architektur) | `docs/02-architecture/` |
 | API | [API](API) | `docs/03-api/` |
 | Frontend | [Frontend](Frontend) | `frontend/README.md` |
-| Teststrategie | [Teststrategie](Teststrategie) | `docs/04-quality/test-pyramid.md` |
-| Quality Hub | [Quality Hub](Quality-Hub) | `docs/04-quality/` |
-| Abgabe | [Abgabe-Checkliste](Abgabe-Checkliste) | `docs/05-presentation/`, `docs/06-operations/` |
-
-## Abgabe-relevante Nachweise
-
-- Drei Schichten: Frontend, Backend und Persistenz.
-- Öffentlicher Endpunkt: `GET /api/tasks`.
-- Geschützte Endpunkte mit Session-Cookie.
-- Externe APIs: PokeAPI im Backend, Open-Meteo im Frontend.
-- Unit-, Controller-, Integrations-, Architektur-, Security- und E2E-Tests.
-- Quality Hub als sichtbares SQS-Dashboard.
-- arc42, ADRs und C4-Diagramme unter `docs/`.
+| Teststrategie | [Teststrategie](Teststrategie) | `docs/04-quality/` |
+| Quality Hub | [Quality Hub](Quality-Hub) | `quality/README.md` |
+| Abgabe | [Abgabe-Checkliste](Abgabe-Checkliste) | `docs/05-presentation/` |
+| ReadTheDocs | [ReadTheDocs](ReadTheDocs) | `docs/06-operations/` |

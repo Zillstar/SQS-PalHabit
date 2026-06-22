@@ -73,7 +73,7 @@ export class WeatherService {
 
   private runAsync(action: () => Promise<unknown>): void {
     action().catch(() => {
-      this.errorMessage.set('Wetterdaten sind gerade nicht verfÃ¼gbar.');
+      this.errorMessage.set('Wetterdaten sind gerade nicht verfügbar.');
       this.isLoading.set(false);
     });
   }

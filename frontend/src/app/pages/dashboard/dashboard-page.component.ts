@@ -15,6 +15,8 @@ import { QualityGateCardComponent } from './components/quality-gate-card/quality
 import { TaskListComponent } from './components/task-list/task-list.component';
 import { TopBarComponent } from './components/top-bar/top-bar.component';
 
+type PetAction = 'feed' | 'level-up' | 'motivation';
+
 @Component({
   selector: 'sqs-dashboard-page',
   standalone: true,
@@ -32,6 +34,7 @@ export class DashboardPageComponent implements OnDestroy {
   readonly pokemon = inject(PokemonService);
   readonly busyTaskId = signal<string | null>(null);
   readonly busyWaterAmountMl = signal<number | null>(null);
+  readonly busyPetAction = signal<PetAction | null>(null);
   private readonly dashboardRefreshInterval: ReturnType<typeof setInterval>;
 
   constructor() {
@@ -76,15 +79,15 @@ export class DashboardPageComponent implements OnDestroy {
   }
 
   feedPet(): void {
-    this.runAsync(() => this.appState.feedPet());
+    this.runPetAction('feed', () => this.appState.feedPet());
   }
 
   testLevelUpPet(): void {
-    this.runAsync(() => this.appState.testLevelUp());
+    this.runPetAction('level-up', () => this.appState.testLevelUp());
   }
 
   testMotivationDecay(): void {
-    this.runAsync(() => this.appState.testMotivationDecay());
+    this.runPetAction('motivation', () => this.appState.testMotivationDecay());
   }
 
   addWater(amountMl: number): void {
@@ -133,6 +136,15 @@ export class DashboardPageComponent implements OnDestroy {
 
   private isQuestListBusy(): boolean {
     return this.busyTaskId() !== null || this.busyWaterAmountMl() !== null;
+  }
+
+  private runPetAction(actionName: PetAction, action: () => Promise<unknown>): void {
+    if (this.busyPetAction() !== null || this.appState.isActionPending()) {
+      return;
+    }
+
+    this.busyPetAction.set(actionName);
+    this.runAsync(action, () => this.busyPetAction.set(null));
   }
 
   private runAsync(action: () => Promise<unknown>, afterAction?: () => void): void {

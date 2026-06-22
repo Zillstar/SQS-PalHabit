@@ -58,12 +58,4 @@
   <div class="quality-gate__meter" aria-hidden="true">
     <span [style.width.%]="progressPercent()"></span>
   </div>
-
-  <div class="quality-gate__pyramid">
-    @for (task of visibleTasks(); track task.id) {
-      <span [class.quality-gate__stage--done]="task.isCompleted">
-        {{ task.title }}
-      </span>
-    }
-  </div>
 </section>

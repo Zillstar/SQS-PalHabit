@@ -1,0 +1,59 @@
+%%{init: {
+  "theme": "base",
+  "themeVariables": {
+    "fontFamily": "Inter, Arial, sans-serif",
+    "primaryColor": "#EAF3FF",
+    "primaryBorderColor": "#2563EB",
+    "primaryTextColor": "#0F172A",
+    "actorBorder": "#2563EB",
+    "actorBkg": "#DBEAFE",
+    "actorTextColor": "#0F172A",
+    "activationBorderColor": "#2563EB",
+    "activationBkgColor": "#BFDBFE",
+    "sequenceNumberColor": "#475569",
+    "signalColor": "#334155",
+    "signalTextColor": "#0F172A",
+    "noteBkgColor": "#F8FAFC",
+    "noteBorderColor": "#CBD5E1",
+    "noteTextColor": "#0F172A"
+  }
+}}%%
+
+sequenceDiagram
+    autonumber
+    actor Nutzer
+    participant FE as Angular-Frontend
+    participant BE as Spring-Boot-Backend
+    participant DB as PostgreSQL
+
+    rect rgb(239, 246, 255)
+        Nutzer->>FE: App öffnen
+        FE-->>Nutzer: Splash-Screen anzeigen
+        Nutzer->>FE: Login oder Registrierung absenden
+    end
+
+    rect rgb(248, 250, 252)
+        FE->>BE: POST /api/auth/login oder /api/auth/signup
+        activate BE
+        BE->>DB: Nutzer prüfen oder anlegen
+        activate DB
+        DB-->>BE: Nutzerdaten zurückgeben
+        deactivate DB
+        BE->>BE: Session erzeugen und Login-/Streak-Daten aktualisieren
+        BE-->>FE: Authentifizierter Zustand
+        deactivate BE
+    end
+
+    rect rgb(240, 253, 244)
+        FE->>BE: Dashboard-Daten laden
+        activate BE
+        BE->>DB: Tasks, Spielstand und Pal-Fortschritt laden
+        activate DB
+        DB-->>BE: Dashboard-Daten
+        deactivate DB
+        BE-->>FE: Spielstand und Tasks
+        deactivate BE
+        FE-->>Nutzer: Dashboard anzeigen
+    end
+
+    Note over FE,BE: Authentifizierung und Session-Verwaltung bleiben zentral im Backend.

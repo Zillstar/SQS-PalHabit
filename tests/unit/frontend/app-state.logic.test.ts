@@ -213,7 +213,7 @@ describe("app-state.logic", () => {
     );
   });
 
-  it("entwickelt gewÃ¤hlte Starter entlang ihrer eigenen Reihenfolge", () => {
+  it("entwickelt gewählte Starter entlang ihrer eigenen Reihenfolge", () => {
     const initialGameState = createInitialGameState("charmander");
     const levelFourteenState = {
       ...initialGameState,

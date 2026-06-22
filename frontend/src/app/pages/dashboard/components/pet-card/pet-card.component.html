@@ -40,6 +40,17 @@
           [pokemonSource]="displayPokemonSource()"
           [isLevelingUp]="isLevelingUp()"
         />
+
+        <button
+          sqsButton
+          class="pet-card__primary-action"
+          [disabled]="isFeedBusy() || !canFeed()"
+          [variant]="isFeedBusy() || !canFeed() ? 'secondary' : 'primary'"
+          type="button"
+          (click)="requestFeeding()"
+        >
+          {{ isFeedBusy() ? 'Bitte warten...' : 'Partner trainieren' }}
+        </button>
       </div>
 
       <div class="pet-card__details">
@@ -104,12 +115,6 @@
         <div class="pet-card__stats">
           <sqs-stat-badge label="Pokémon" [value]="pokemonStatus()" icon="pokemon" tone="green" />
           <sqs-stat-badge
-            label="Quest-Punkte"
-            [value]="availablePointsLabel()"
-            icon="points"
-            tone="blue"
-          />
-          <sqs-stat-badge
             label="Motivation"
             [value]="currentPet.happiness + '%'"
             icon="hearts"
@@ -119,27 +124,6 @@
       </div>
 
       <div class="pet-card__control-row">
-        <div class="pet-card__training-action">
-          <div class="pet-card__hint">
-            <strong>Quests und Wasser halten deinen Partner fit.</strong>
-            <span>
-              Level-Ups sind frühestens alle zwei Tage möglich; die Demo-Aktionen helfen beim
-              schnellen Prüfen.
-            </span>
-          </div>
-
-          <button
-            sqsButton
-            class="pet-card__primary-action"
-            [disabled]="isBusy() || !canFeed()"
-            [variant]="isBusy() || !canFeed() ? 'secondary' : 'primary'"
-            type="button"
-            (click)="requestFeeding()"
-          >
-            {{ isBusy() ? 'Bitte warten...' : 'Pokémon trainieren' }}
-          </button>
-        </div>
-
         <div class="pet-card__demo-actions">
           <span class="pet-card__control-label">Demo</span>
           <div class="pet-card__demo-buttons">
@@ -148,10 +132,10 @@
               class="pet-card__utility-action"
               variant="soft"
               type="button"
-              [disabled]="isBusy()"
+              [disabled]="isTestLevelUpBusy()"
               (click)="requestTestLevelUp()"
             >
-              {{ isBusy() ? 'Bitte warten...' : 'Level-Up testen' }}
+              {{ isTestLevelUpBusy() ? 'Bitte warten...' : 'Level-Up testen' }}
             </button>
 
             <button
@@ -159,10 +143,10 @@
               class="pet-card__utility-action"
               variant="ghost"
               type="button"
-              [disabled]="isBusy()"
+              [disabled]="isTestMotivationDecayBusy()"
               (click)="requestTestMotivationDecay()"
             >
-              {{ isBusy() ? 'Bitte warten...' : 'Motivation senken' }}
+              {{ isTestMotivationDecayBusy() ? 'Bitte warten...' : 'Motivation senken' }}
             </button>
           </div>
         </div>

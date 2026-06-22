@@ -1,4 +1,8 @@
-# ReadTheDocs veröffentlichen
+# ReadTheDocs
+
+ReadTheDocs ist ein Dienst zur automatischen Veröffentlichung von technischer
+Dokumentation. Das Tool kann ein Git-Repository mit einer Dokumentation verbinden,
+diese automatisch bauen und anschließend als öffentliche Webseite bereitstellen.
 
 Die technische Vorbereitung liegt im Repository. Der letzte Schritt passiert im
 ReadTheDocs-Webinterface, weil dort das öffentliche Git-Repository verbunden
@@ -38,3 +42,17 @@ Wenn der Build fehlschlägt, zuerst prüfen:
 - Wird der richtige Branch gebaut?
 - Kann ReadTheDocs `docs/requirements.txt` installieren?
 - Stimmen die Pfade in `mkdocs.yml` noch?
+
+## Ergebnis
+
+Die Veröffentlichung über ReadTheDocs wurde erfolgreich durchgeführt. Das
+Repository konnte mit ReadTheDocs verbunden werden und der Build wurde
+erfolgreich ausgeführt.
+
+Die öffentliche Dokumentation ist unter folgender URL erreichbar:
+
+[https://luinarasqs-semesterarbeit.readthedocs.io/de/latest/](https://luinarasqs-semesterarbeit.readthedocs.io/de/latest/)
+
+Damit ist die Projektdokumentation öffentlich verfügbar und kann sowohl im
+`README.md` als auch in der Dokumentations-Startseite und in den
+Präsentationsnotizen referenziert werden.

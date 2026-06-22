@@ -82,33 +82,30 @@ jobs:
       - name: Run unit and integration tests
         run: mvn --batch-mode --no-transfer-progress verify
 
-      - name: Debug JaCoCo output
-        id: debug-jacoco
-        if: always()
+      - name: Verify JaCoCo report was generated
+        id: verify-jacoco
         run: |
-          echo 'Listing target directory'
-          ls -la target || true
-          echo 'Listing target/site'
-          ls -la target/site || true
-          echo 'Listing target/site/jacoco'
-          ls -la target/site/jacoco || true
           if [ -f target/site/jacoco/jacoco.xml ]; then
-            echo 'JaCoCo report exists';
-            wc -c target/site/jacoco/jacoco.xml || true
+            echo "✓ JaCoCo report exists"
+            ls -lah target/site/jacoco/jacoco.xml
+            wc -c target/site/jacoco/jacoco.xml
             echo "jacoco_exists=true" >> "$GITHUB_OUTPUT"
           else
-            echo 'JaCoCo report NOT found at target/site/jacoco/jacoco.xml';
-            echo 'Contents of target/site/jacoco:'; ls -la target/site/jacoco || true;
+            echo "❌ ERROR: JaCoCo report NOT found at target/site/jacoco/jacoco.xml"
+            echo "Listing target/site directory:"
+            ls -lah target/site || true
+            echo "Listing target/site/jacoco directory:"
+            ls -lah target/site/jacoco || echo "Directory does not exist"
             echo "jacoco_exists=false" >> "$GITHUB_OUTPUT"
+            exit 1
           fi
 
       - name: Upload JaCoCo coverage report
-        if: steps.debug-jacoco.outputs.jacoco_exists == 'true'
         uses: actions/upload-artifact@v7
         with:
           name: backend-jacoco-report
-          path: target/site/jacoco/jacoco.xml
-          retention-days: 14
+          path: backend/target/site/jacoco/jacoco.xml
+          retention-days: 30
 
   # ──────────────────────────────────────────────────────────────────────────
 
@@ -192,13 +189,25 @@ jobs:
       - name: Run tests with coverage
         run: npm run test:coverage
 
+      - name: Verify frontend coverage report
+        run: |
+          if [ -f coverage/lcov.info ]; then
+            echo "✓ Frontend coverage report exists"
+            ls -lah coverage/lcov.info
+            wc -c coverage/lcov.info
+          else
+            echo "⚠️ Frontend coverage report not found at coverage/lcov.info"
+            echo "Listing coverage directory:"
+            ls -lah coverage || echo "Directory does not exist"
+          fi
+
       - name: Upload coverage report
-        if: always()
         uses: actions/upload-artifact@v7
         with:
           name: frontend-coverage-report
-          path: frontend/coverage
-          retention-days: 14
+          path: coverage
+          retention-days: 30
+          if-no-files-found: warn
 
   # ──────────────────────────────────────────────────────────────────────────
 
@@ -236,9 +245,10 @@ jobs:
   sonarqube:
     name: 'SonarQube Analysis'
     runs-on: ubuntu-latest
+    if: success()
     # Needs the analyze jobs (so Checkstyle/SpotBugs/ESLint/Prettier pass first)
     # and the test jobs (which upload the coverage artifacts consumed below).
-    needs: [backend-analyze, frontend-analyze, frontend-test]
+    needs: [backend-test, backend-analyze, frontend-analyze, frontend-test]
 
     steps:
       - uses: actions/checkout@v6
@@ -261,8 +271,51 @@ jobs:
           cache: npm
           cache-dependency-path: frontend/package-lock.json
 
+      # Download coverage artifacts FIRST, before compiling or installing dependencies.
+      # SonarScanner must find these reports in their configured locations.
+      - name: Download JaCoCo coverage report
+        id: download-jacoco
+        continue-on-error: true
+        uses: actions/download-artifact@v7
+        with:
+          name: backend-jacoco-report
+          path: backend/target/site/jacoco
+
+      - name: Download frontend coverage report
+        id: download-frontend-coverage
+        continue-on-error: true
+        uses: actions/download-artifact@v7
+        with:
+          name: frontend-coverage-report
+          path: frontend/coverage
+
+      - name: Verify JaCoCo artifact
+        run: |
+          if [ -f backend/target/site/jacoco/jacoco.xml ]; then
+            echo "✓ JaCoCo report successfully downloaded"
+            ls -lah backend/target/site/jacoco/jacoco.xml
+            wc -c backend/target/site/jacoco/jacoco.xml
+          else
+            echo "❌ WARNING: JaCoCo artifact not found at backend/target/site/jacoco/jacoco.xml"
+            echo "SonarCloud will analyze without backend coverage data."
+            ls -lah backend/target/site/jacoco/ 2>/dev/null || echo "Directory does not exist"
+          fi
+
+      - name: Verify frontend coverage artifact
+        run: |
+          if [ -f frontend/coverage/lcov.info ]; then
+            echo "✓ Frontend coverage report successfully downloaded"
+            ls -lah frontend/coverage/lcov.info
+            echo "File size:"
+            wc -c frontend/coverage/lcov.info
+          else
+            echo "⚠️ Frontend coverage artifact not found – SonarCloud will analyze without frontend coverage data"
+            echo "Directory contents:"
+            ls -lah frontend/coverage/ || echo "Directory does not exist"
+          fi
+
       # Compile the backend so SonarQube can perform bytecode analysis.
-      # Tests are skipped here because coverage data comes from artifacts.
+      # Tests are skipped here because coverage data comes from artifacts (now already downloaded).
       - name: Compile backend
         run: mvn --batch-mode --no-transfer-progress compile -DskipTests
         working-directory: backend
@@ -287,45 +340,35 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
 
-      # Check if JaCoCo artifact exists before attempting to download it
-      - name: Check for backend JaCoCo artifact
-        id: check-artifact
+      # Final check: verify both coverage files exist before SonarScanner runs
+      - name: List directory structure before SonarQube scan
         run: |
-          echo "Checking repository artifacts for backend-jacoco-report..."
-          artifacts=$(curl -s -H "Authorization: token $GITHUB_TOKEN" "https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}/artifacts")
-          echo "$artifacts" | jq '.' || true
-          if echo "$artifacts" | grep -q '"name": "backend-jacoco-report"'; then
-            echo "found=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "found=false" >> "$GITHUB_OUTPUT"
-          fi
+          echo "=== Repository root ==="
+          ls -la
+          echo ""
+          echo "=== Backend structure ==="
+          find backend/target -type f -name "*.xml" 2>/dev/null | head -20
+          echo ""
+          echo "=== Frontend coverage ==="
+          find frontend/coverage -type f 2>/dev/null | head -20
+          echo ""
+          echo "=== Verifying coverage files ==="
+          echo -n "Backend JaCoCo: "
+          [ -f backend/target/site/jacoco/jacoco.xml ] && echo "✓ EXISTS ($(wc -c < backend/target/site/jacoco/jacoco.xml) bytes)" || echo "✗ MISSING"
+          echo -n "Frontend LCOV: "
+          [ -f frontend/coverage/lcov.info ] && echo "✓ EXISTS ($(wc -c < frontend/coverage/lcov.info) bytes)" || echo "✗ MISSING"
+
+      # Runs the SonarCloud Scanner for the entire monorepo.
+      # Analyses both the Java backend and the TypeScript frontend in one pass.
+      # Coverage reports are loaded from backend/target/site/jacoco/jacoco.xml and frontend/coverage/lcov.info
+      - name: SonarCloud scan
+        if: steps.sonar-check.outputs.configured == 'true'
+        uses: sonarsource/sonarcloud-github-action@ba3875ecf642b2129de2b589510c81a8b53dbf4e
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_REPOSITORY: ${{ github.repository }}
-          GITHUB_RUN_ID: ${{ github.run_id }}
-
-      # Download coverage reports produced by the test jobs.
-      - name: Download JaCoCo coverage report
-        if: steps.check-artifact.outputs.found == 'true'
-        uses: actions/download-artifact@v8
-        with:
-          name: backend-jacoco-report
-          path: backend/target/site/jacoco
-
-      - name: Warn if JaCoCo artifact missing
-        if: steps.check-artifact.outputs.found != 'true'
-        run: |
-          echo '⚠️ JaCoCo artifact backend-jacoco-report not found for this run.'
-          echo 'SonarQube analysis will continue without coverage data.'
-
-      # Runs the SonarQube Scanner using the root sonar-project.properties.
-      # Analyses both the Java backend and the TypeScript frontend in one pass.
-      - name: SonarQube scan
-        if: steps.sonar-check.outputs.configured == 'true'
-        uses: sonarsource/sonarqube-scan-action@2f77a1ec69fb1d595b06f35ab27e97605bdef703 # v5.3.2
-        env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+          # Override paths to ensure SonarCloud finds the coverage reports
+          SONARQUBE_SCANNER_PARAMS: -Dsonar.projectBaseDir=. -Dsonar.sources=backend/src/main/java,frontend/src -Dsonar.tests=backend/src/test/java,tests/unit -Dsonar.coverage.jacoco.xmlReportPaths=backend/target/site/jacoco/jacoco.xml -Dsonar.javascript.lcov.reportPaths=frontend/coverage/lcov.info -Dsonar.java.binaries=backend/target/classes
 
   # ──────────────────────────────────────────────────────────────────────────
   # END-TO-END TESTS
@@ -357,6 +400,8 @@ jobs:
 
       - name: Run e2e tests
         run: npm run test:e2e
+        env:
+          PLAYWRIGHT_EVIDENCE: '1'
 
       - name: Upload Playwright report
         if: always()

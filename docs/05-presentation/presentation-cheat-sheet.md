@@ -5,8 +5,8 @@ Reihenfolge sicher können und die Begriffe sauber treffen.
 
 ## Einstieg
 
-"Wir zeigen PokeHabit. Das ist eine kleine Self-Care-App, in der Nutzer
-tägliche Aufgaben erledigen, Wasser tracken und dadurch einen Pokémon-Partner
+"Wir zeigen PalHabit. Das ist eine kleine Self-Care-App, in der Nutzer
+tägliche Aufgaben erledigen, Wasser tracken und dadurch einen Pal-Partner
 begleiten. Wichtig war uns, dass das Projekt nicht nur hübsch aussieht,
 sondern auch technisch nachweisbar funktioniert."
 

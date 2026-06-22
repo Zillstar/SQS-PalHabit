@@ -38,8 +38,8 @@ public class AuthenticationService {
     private static final int MAX_FAILED_LOGIN_ATTEMPTS = 5;
     private static final Duration LOGIN_LOCKOUT_DURATION = Duration.ofMinutes(15);
     private static final int DEFAULT_STARTER_POKEMON_ID = 1;
-    private static final int MIN_POKEMON_LEVEL = 1;
-    private static final int HAPPINESS_DECAY_PER_MISSED_DAY = 10;
+    private static final int HAPPINESS_DECAY_PER_MISSED_DAY = 25;
+    private static final int XP_PENALTY_PER_MISSED_DAY = 10;
 
     private final Map<String, String> users = new ConcurrentHashMap<>();
     private final Map<String, String> sessions = new ConcurrentHashMap<>();
@@ -227,23 +227,19 @@ public class AuthenticationService {
             return;
         }
 
-        int maxLevelLoss = Math.max(0, entity.getPokemonLevel() - MIN_POKEMON_LEVEL);
-        int levelLoss = (int) Math.min(missedDays, maxLevelLoss);
-
-        if (levelLoss > 0) {
-            entity.setPokemonLevel(entity.getPokemonLevel() - levelLoss);
-            entity.setPokemonXp(0);
-            entity.setLastLevelUpAt(null);
-        }
-
         int happinessLoss = (int) Math.min(Integer.MAX_VALUE, missedDays * HAPPINESS_DECAY_PER_MISSED_DAY);
-        applyMotivationDecay(entity, happinessLoss);
+        applyMotivationDecay(entity, happinessLoss, missedDays);
     }
 
-    private void applyMotivationDecay(UserEntity entity, int motivationLoss) {
+    private void applyMotivationDecay(UserEntity entity, int motivationLoss, long missedDays) {
         int currentHappiness = entity.getHappiness();
 
         entity.setHappiness(Math.max(0, currentHappiness - motivationLoss));
+
+        if (currentHappiness > 0) {
+            int xpPenalty = (int) Math.min(Integer.MAX_VALUE, missedDays * XP_PENALTY_PER_MISSED_DAY);
+            entity.setPokemonXp(Math.max(0, entity.getPokemonXp() - xpPenalty));
+        }
     }
 
     /**

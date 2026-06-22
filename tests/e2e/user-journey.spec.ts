@@ -1,21 +1,18 @@
 import { Page } from "@playwright/test";
 import { expect, test } from "../../frontend/testing/playwright-test";
+import {
+  berlinWeatherLocation,
+  berlinWeatherSnapshot,
+  clearBrowserStorage,
+  fulfillOpenMeteoForecast,
+  learningTask,
+  waterTask,
+} from "./mock-api";
 
 const ivysaurSpriteUrl =
   "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/2.png";
 
-const tasks = [
-  {
-    id: 1,
-    title: "Wasser trinken",
-    description: "Trinke heute 3 Liter Wasser.",
-  },
-  {
-    id: 2,
-    title: "30 Minuten lernen",
-    description: "Ein fokussierter Lernblock für dein Pokémon.",
-  },
-];
+const tasks = [waterTask, learningTask];
 
 test.describe("PokeHabit", () => {
   test("führt vom Login durch Quest, Wasser, Training, Level-Up und Logout", async ({
@@ -102,18 +99,24 @@ test.describe("PokeHabit", () => {
       }
 
       if (url.pathname === "/api/user/test-motivation-decay") {
-        gameState.happiness = Math.max(0, gameState.happiness - 10);
+        const previousHappiness = gameState.happiness;
+        gameState.happiness = Math.max(0, gameState.happiness - 25);
+        if (previousHappiness > 0) {
+          gameState.growth = Math.max(0, gameState.growth - 10);
+        }
         await route.fulfill({ json: createGameState(gameState, completions) });
         return;
       }
 
       if (url.pathname === "/api/weather/location") {
-        await route.fulfill({ json: weatherLocation() });
+        await route.fulfill({ json: berlinWeatherLocation() });
         return;
       }
 
       if (url.pathname === "/api/weather/current") {
-        await route.fulfill({ json: weatherSnapshot() });
+        await route.fulfill({
+          json: berlinWeatherSnapshot({ temperatureC: 22, weatherCode: 2 }),
+        });
         return;
       }
 
@@ -121,15 +124,9 @@ test.describe("PokeHabit", () => {
     });
 
     await page.route("https://api.open-meteo.com/**", async (route) => {
-      await route.fulfill({
-        json: {
-          current: {
-            temperature_2m: 22,
-            weather_code: 2,
-            is_day: 1,
-            time: "2026-06-15T10:00",
-          },
-        },
+      await fulfillOpenMeteoForecast(route, {
+        temperatureC: 22,
+        weatherCode: 2,
       });
     });
 
@@ -150,9 +147,7 @@ test.describe("PokeHabit", () => {
       });
     });
 
-    await page.addInitScript(() => {
-      globalThis.localStorage.clear();
-    });
+    await clearBrowserStorage(page);
 
     await page.goto("/auth", { waitUntil: "domcontentloaded", timeout: 10000 });
 
@@ -171,12 +166,16 @@ test.describe("PokeHabit", () => {
     ).toBeVisible();
     await expect(page.getByText("500 / 3000 ml")).toBeVisible();
     await expect(motivationBadge(page)).toContainText("75%");
-    await expect(questPointsBadge(page)).toContainText("10 / 250");
+    await expect(
+      page.getByRole("button", { name: "Partner trainieren", exact: true }),
+    ).toBeEnabled();
 
     await page.getByRole("button", { name: "Motivation senken" }).click();
-    await expect(motivationBadge(page)).toContainText("65%");
+    await expect(motivationBadge(page)).toContainText("50%");
     await expect(
-      page.getByText("Motivationstest ausgefuehrt: 75% -> 65%."),
+      page.getByText(
+        "Motivationstest ausgeführt: 75% -> 50%, Wachstum 40 -> 30.",
+      ),
     ).toBeVisible();
 
     await page
@@ -193,12 +192,12 @@ test.describe("PokeHabit", () => {
     await expect(page.getByText("+500 ml Wasser getrunken.")).toBeVisible();
 
     await page
-      .getByRole("button", { name: "Pokémon trainieren", exact: true })
+      .getByRole("button", { name: "Partner trainieren", exact: true })
       .click();
     await expect(
-      page.getByText("Quest-Punkte wurden für dein Pokémon eingesetzt."),
+      page.getByText("Fortschritt wurde für deinen Partner eingesetzt."),
     ).toBeVisible();
-    await expect(questPointsBadge(page)).toContainText("20 / 250");
+    await expect(motivationBadge(page)).toContainText("51%");
 
     await page.getByRole("button", { name: "Level-Up testen" }).click();
     await expect(page.getByText("Level-Up auf 3.")).toBeVisible();
@@ -240,28 +239,4 @@ function createGameState(
 
 function motivationBadge(page: Page) {
   return page.locator("sqs-stat-badge").filter({ hasText: "Motivation" });
-}
-
-function questPointsBadge(page: Page) {
-  return page.locator("sqs-stat-badge").filter({ hasText: "Quest-Punkte" });
-}
-
-function weatherLocation() {
-  return {
-    latitude: 52.52,
-    longitude: 13.41,
-    label: "Berlin, Berlin, Deutschland",
-  };
-}
-
-function weatherSnapshot() {
-  return {
-    condition: "cloudy",
-    timeOfDay: "day",
-    temperatureC: 22,
-    weatherCode: 2,
-    label: "Bewoelkt",
-    locationLabel: "Berlin, Berlin, Deutschland",
-    updatedAt: "2026-06-15T10:00:00Z",
-  };
 }

@@ -1,15 +1,15 @@
 # Teststrategie
 
-Die Teststrategie folgt einer Testpyramide: viele schnelle Unit-Tests, weniger
-Integrations- und Controller-Tests, wenige browserbasierte E2E-Flows.
+Die Teststrategie folgt einer Testpyramide: viele schnelle Unit-Tests, mehrere
+Controller- und Integrationstests, wenige browserbasierte E2E-Flows.
 
 ## Ebenen
 
-| Ebene | Beispiele | Ausführung |
+| Ebene | Beispiele | Ausfuehrung |
 | --- | --- | --- |
-| Unit-Tests | Services, Fachlogik, Mock-Daten, Mapping | `mvn test`, `npm test` |
-| Controller-/Security-Tests | Statuscodes, Auth-Pflicht, Fehlerkörper | `mvn test` |
-| Integrationstests | Spring-Kontext und Persistenzpfade | `mvn verify` |
+| Unit-Tests | Services, Fachlogik, Mapping, Mock-Daten | `mvn test`, `npm test` |
+| Controller-Tests | Statuscodes, Auth-Pflicht, Fehlerkoerper | `mvn test` |
+| Integrationstests | Spring-Kontext, Session-Flows, Persistenz | `mvn verify` |
 | Architekturtests | Schichtengrenzen mit ArchUnit | `mvn test` |
 | Security | npm-Lockfile-Guardrails, `npm audit` | `npm run security:frontend` |
 | E2E | Login, Dashboard, Wasser, Quest, Training, Logout | `npm run test:e2e` |
@@ -28,20 +28,21 @@ Integrations- und Controller-Tests, wenige browserbasierte E2E-Flows.
 ## Lokale Java-Hinweise
 
 - Backend-Tests mit JDK ausfuehren, nicht mit reinem JRE.
-- `SelfCareApplicationTests` prueft Spring-Kontext, zentrale Beans, H2-Testprofil
-  und UTC-Clock.
-- `UserServiceTest` prueft den Daily Reset auch mit `Duration.ofMinutes(1)`.
-- Fuer Java 25 aktiviert Maven lokal ein Kompatibilitaetsprofil; CI bleibt auf
-  Java 21 mit JaCoCo-Coverage.
+- Die CI nutzt Java 21 mit JaCoCo-Coverage.
+- Fuer lokale Java-25-Setups aktiviert Maven ein Kompatibilitaetsprofil.
+- SpotBugs sollte fuer eine echte lokale Pruefung mit Java 21 laufen.
 
 ## Wetter-Nachweis
 
-Die Wetter-Szene wird automatisiert getestet. Für den manuellen Nachweis gibt
+Die Wetter-Szene wird automatisiert getestet. Fuer den manuellen Nachweis gibt
 es:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\scripts\weather-curl-check.ps1 -City "Hawaii" -RawJson
 ```
 
-Die passende Doku liegt unter
-`docs/04-quality/weather-open-meteo-manual-check.md`.
+Die passende Doku liegt unter:
+
+```text
+docs/04-quality/weather-open-meteo-manual-check.md
+```

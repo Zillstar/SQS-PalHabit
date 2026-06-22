@@ -50,7 +50,7 @@ Beispiel:
   - Path: `/api/tasks/{taskId}/complete` (taskId als path param)
   - Body: optionales Meta‑Objekt (nicht erforderlich in dieser Iteration)
 - Response:
-  - 200 OK — die Task wurde neu für den User als abgeschlossen markiert und Effekte wurden angewendet. Body enthält ein `gameState`‑Objekt (entspricht `GameStateDto`, siehe `docs/03-api/user-game-state.md`) mit aktualisierten Werten: `pendingFeedPoints`, `growth`, `pokemonLevel`, `pokemonImageUrl`, `serverNow`, `streak`, `tasks` (optional).
+  - 200 OK — die Task wurde neu für den User als abgeschlossen markiert und Effekte wurden angewendet. Body enthält ein `gameState`‑Objekt (entspricht `GameStateDto`, siehe `docs/03-api/user-game-state.md`) mit aktualisierten Werten: `pendingFeedPoints`, `growth`, `palLevel`, `palImageUrl`, `serverNow`, `streak`, `tasks` (optional).
   - 404 Not Found — Task mit `taskId` existiert nicht.
   - 401 Unauthorized — kein gültiger Login vorhanden.
   - 409 Conflict — die Task ist bereits als abgeschlossen für diesen Benutzer gespeichert (für diese Iteration: `user_tasks.completed == true`).
@@ -61,11 +61,11 @@ Wesentliche Semantik (kurz)
 - Die Aktion führt zu folgenden Effekten:
   - Quest-Punkte: `task.feed_points` werden technisch zu `user.pendingFeedPoints` addiert.
   - Wachstum: Erhöht sich um `10 XP` pro neu abgeschlossenem Task, maximal bis `100`.
-  - Level: Wenn der Wachstumswert den Cap erreicht und der Level-Cooldown erfüllt ist, steigt `pokemonLevel` um genau 1 und `growth` wird auf `0` gesetzt.
+  - Level: Wenn der Wachstumswert den Cap erreicht und der Level-Cooldown erfüllt ist, steigt `palLevel` um genau 1 und `growth` wird auf `0` gesetzt.
   - Cooldown: Ein Level-Up ist nur möglich, wenn `last_level_up_at` leer ist oder mindestens zwei Tage zurückliegt. Ist der Cooldown aktiv, bleibt `growth` bei `100`.
   - Level‑abhängige Effekte:
-    - Beim Erreichen von Level >= 10: Wenn `isEgg == true`, wird das Pokémon ausgebrütet (isEgg=false und `hatchedAt` gesetzt).
-    - Bei Erreichen von Level >= 15 und >= 35: Wenn `evolutionId` vorhanden ist, wird das Pokémon einmal bzw. zweimal weiterentwickelt (sofern Evolutionskette vorhanden).
+    - Beim Erreichen von Level >= 10: Wenn `isEgg == true`, wird das Pal ausgebrütet (isEgg=false und `hatchedAt` gesetzt).
+    - Bei Erreichen von Level >= 15 und >= 35: Wenn `evolutionId` vorhanden ist, wird das Pal einmal bzw. zweimal weiterentwickelt (sofern Evolutionskette vorhanden).
 - Implementation‑Hinweis: In dieser Iteration wird für Persistenz das vorhandene Modell `user_tasks` (boolean `completed`) verwendet; langfristig wird ein `task_completions`‑Log empfohlen, das Tages‑Eindeutigkeit robust handhabt.
 
 Tagesgrenzen / Reset
@@ -86,8 +86,8 @@ Effekt‑Payload (Beispielantwort nach erfolgreichem Abschluss)
   "gameState": {
     "waterLevel": 120,
     "foodLevel": 50,
-    "pokemonImageUrl": "https://cdn.example.com/pokemon/charmander.png",
-    "pokemonLevel": 5,
+    "palImageUrl": "https://cdn.example.com/pal/starter-pal.png",
+    "palLevel": 5,
     "growth": 42,
     "happiness": 66,
     "pendingFeedPoints": 20,
@@ -123,8 +123,8 @@ Implementationshinweise / Roadmap
 
 Frontend‑Hinweis
 
-- Nach erfolgreichem POST sollte das Frontend die lokale Darstellung des Benutzers mit den aus `gameState` zurückgegebenen Werten aktualisieren (`pendingFeedPoints`, `happiness`, `growth`, `pokemonLevel`, `pokemonImageUrl`). Bei 409 kann das Frontend optional den GameState neu laden (`GET /api/user/game-state`).
-- Level-Ups sind serverseitig auf frühestens alle zwei Tage begrenzt. Wenn der Wachstumswert voll ist, aber der Cooldown aktiv bleibt, hält der Server `growth` am Cap und erhöht `pokemonLevel` erst bei einer späteren qualifizierenden Aktion.
+- Nach erfolgreichem POST sollte das Frontend die lokale Darstellung des Benutzers mit den aus `gameState` zurückgegebenen Werten aktualisieren (`pendingFeedPoints`, `happiness`, `growth`, `palLevel`, `palImageUrl`). Bei 409 kann das Frontend optional den GameState neu laden (`GET /api/user/game-state`).
+- Level-Ups sind serverseitig auf frühestens alle zwei Tage begrenzt. Wenn der Wachstumswert voll ist, aber der Cooldown aktiv bleibt, hält der Server `growth` am Cap und erhöht `palLevel` erst bei einer späteren qualifizierenden Aktion.
 
 Dateiablage
 

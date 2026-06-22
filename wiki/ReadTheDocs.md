@@ -1,6 +1,6 @@
 # ReadTheDocs
 
-Die ausführliche Dokumentation bleibt unter `docs/` und wird mit MkDocs für
+Die ausfuehrliche Dokumentation bleibt unter `docs/` und wird mit MkDocs fuer
 ReadTheDocs gebaut.
 
 ## Wichtige Dateien
@@ -18,7 +18,7 @@ Falls MkDocs installiert ist:
 mkdocs build
 ```
 
-## Veröffentlichung
+## Veroeffentlichung
 
 Die konkreten Schritte stehen in:
 
@@ -26,5 +26,10 @@ Die konkreten Schritte stehen in:
 docs/06-operations/readthedocs-publish.md
 ```
 
-Nach dem Verbinden des öffentlichen Repositorys mit ReadTheDocs sollte die
-veröffentlichte Doku-URL in README, Präsentation und Wiki ergänzt werden.
+Nach dem Verbinden des oeffentlichen Repositorys mit ReadTheDocs sollte die
+veroeffentlichte Doku-URL in README, Praesentation und Wiki ergaenzt werden.
+
+## Rolle des Wikis
+
+Das Wiki ist der schnelle Einstieg. ReadTheDocs ist die vollstaendige technische
+Dokumentation mit arc42, ADRs, C4-Diagrammen, API-Details und Qualitaetskapitel.

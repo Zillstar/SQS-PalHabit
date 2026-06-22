@@ -10,7 +10,7 @@ const tasks = [
   {
     id: 2,
     title: "30 Minuten lernen",
-    description: "Ein fokussierter Lernblock fuer dein Pokemon.",
+    description: "Ein fokussierter Lernblock für dein Pokémon.",
   },
 ];
 
@@ -58,6 +58,7 @@ test.describe("Daily reset", () => {
 
       if (url.pathname === "/api/auth/logout") {
         resetExpired = true;
+        await page.reload();
         completions.set(1, false);
         completions.set(2, false);
         gameState.waterLevel = 0;

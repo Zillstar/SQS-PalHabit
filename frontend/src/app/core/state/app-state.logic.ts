@@ -80,7 +80,7 @@ export function feedPetInGameStateWithFeedback(
       gameState: normalizedGameState,
       feedback: createGameFeedback(
         'info',
-        `Noch ${PET_RULES.feedCost - currentPet.availableFoodPoints} Quest-Punkte bis zur nächsten Pflege.`
+        `Noch ${PET_RULES.feedCost - currentPet.availableFoodPoints} Fortschritt bis zur naechsten Pflege.`
       ),
     };
   }
@@ -283,8 +283,8 @@ function completeTask(
     feedback: createGameFeedback(
       didReachGate ? 'level-up' : 'quest',
       didReachGate
-        ? `Tagesziel erreicht: ${nextQualityScore} Quest-Punkte.`
-        : `Quest erledigt: +${taskToComplete.points} Quest-Punkte.`
+        ? `Tagesziel erreicht: ${nextQualityScore} Fortschritt.`
+        : `Quest erledigt: +${taskToComplete.points} Fortschritt.`
     ),
   };
 }

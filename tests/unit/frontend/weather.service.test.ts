@@ -50,7 +50,7 @@ describe("WeatherService", () => {
   beforeEach(() => {
     vi.useFakeTimers();
     vi.spyOn(globalThis, "fetch").mockResolvedValue(
-      new Response(JSON.stringify(berlinWeatherResponse), { status: 200 })
+      new Response(JSON.stringify(berlinWeatherResponse), { status: 200 }),
     );
   });
 
@@ -58,12 +58,20 @@ describe("WeatherService", () => {
     vi.useRealTimers();
   });
 
-  it("speichert die gewaehlte Stadt und nutzt sie fuer weitere Aktualisierungen", async () => {
+  it("speichert die gewählte Stadt und nutzt sie für weitere Aktualisierungen", async () => {
     vi.mocked(fetch)
-      .mockResolvedValueOnce(new Response(JSON.stringify(berlinWeatherResponse), { status: 200 }))
-      .mockResolvedValueOnce(new Response(JSON.stringify(zurichLocationResponse), { status: 200 }))
-      .mockResolvedValueOnce(new Response(JSON.stringify(berlinWeatherResponse), { status: 200 }))
-      .mockResolvedValueOnce(new Response(JSON.stringify(berlinWeatherResponse), { status: 200 }));
+      .mockResolvedValueOnce(
+        new Response(JSON.stringify(berlinWeatherResponse), { status: 200 }),
+      )
+      .mockResolvedValueOnce(
+        new Response(JSON.stringify(zurichLocationResponse), { status: 200 }),
+      )
+      .mockResolvedValueOnce(
+        new Response(JSON.stringify(berlinWeatherResponse), { status: 200 }),
+      )
+      .mockResolvedValueOnce(
+        new Response(JSON.stringify(berlinWeatherResponse), { status: 200 }),
+      );
 
     const service = new WeatherService();
     service.initialize();
@@ -74,7 +82,7 @@ describe("WeatherService", () => {
     expect(localStorage.getItem("sqs-weather-location")).toContain("Zuerich");
     expect(fetch).toHaveBeenLastCalledWith(
       expect.stringContaining("/api/weather/current?latitude=47.36667"),
-      expect.objectContaining({ credentials: "include" })
+      expect.objectContaining({ credentials: "include" }),
     );
   });
 
@@ -85,7 +93,7 @@ describe("WeatherService", () => {
         latitude: 47.36667,
         longitude: 8.55,
         label: "Zuerich, Kanton Zuerich, Schweiz",
-      })
+      }),
     );
 
     const service = new WeatherService();
@@ -95,7 +103,7 @@ describe("WeatherService", () => {
     expect(service.location().label).toBe("Zuerich, Kanton Zuerich, Schweiz");
     expect(fetch).toHaveBeenLastCalledWith(
       expect.stringContaining("/api/weather/current?latitude=47.36667"),
-      expect.objectContaining({ credentials: "include" })
+      expect.objectContaining({ credentials: "include" }),
     );
   });
 
@@ -106,30 +114,40 @@ describe("WeatherService", () => {
         latitude: 19.54814,
         longitude: -155.66495,
         label: "Hawaii, Hawaii, Vereinigte Staaten",
-      })
+      }),
     );
 
     const service = new WeatherService();
     service.initialize();
     await service.refresh();
 
-    expect(service.location().label).toBe("Hawaii Kai, Hawaii, Vereinigte Staaten");
-    expect(localStorage.getItem("sqs-weather-location")).toContain("Hawaii Kai");
+    expect(service.location().label).toBe(
+      "Hawaii Kai, Hawaii, Vereinigte Staaten",
+    );
+    expect(localStorage.getItem("sqs-weather-location")).toContain(
+      "Hawaii Kai",
+    );
     expect(fetch).toHaveBeenLastCalledWith(
       expect.stringContaining("latitude=21.29637"),
-      expect.objectContaining({ credentials: "include" })
+      expect.objectContaining({ credentials: "include" }),
     );
     expect(fetch).toHaveBeenLastCalledWith(
       expect.stringContaining("longitude=-157.70175"),
-      expect.objectContaining({ credentials: "include" })
+      expect.objectContaining({ credentials: "include" }),
     );
   });
 
-  it("nutzt den Backend-Treffer fuer ungenaue Stadteingaben", async () => {
+  it("nutzt den Backend-Treffer für ungenaue Stadteingaben", async () => {
     vi.mocked(fetch)
-      .mockResolvedValueOnce(new Response(JSON.stringify(berlinWeatherResponse), { status: 200 }))
-      .mockResolvedValueOnce(new Response(JSON.stringify(jakutskLocationResponse), { status: 200 }))
-      .mockResolvedValueOnce(new Response(JSON.stringify(jakutskWeatherResponse), { status: 200 }));
+      .mockResolvedValueOnce(
+        new Response(JSON.stringify(berlinWeatherResponse), { status: 200 }),
+      )
+      .mockResolvedValueOnce(
+        new Response(JSON.stringify(jakutskLocationResponse), { status: 200 }),
+      )
+      .mockResolvedValueOnce(
+        new Response(JSON.stringify(jakutskWeatherResponse), { status: 200 }),
+      );
 
     const service = new WeatherService();
     service.initialize();
@@ -144,15 +162,15 @@ describe("WeatherService", () => {
     expect(fetch).toHaveBeenNthCalledWith(
       2,
       expect.stringContaining("/api/weather/location?city=jakuts"),
-      expect.objectContaining({ credentials: "include" })
+      expect.objectContaining({ credentials: "include" }),
     );
     expect(fetch).toHaveBeenLastCalledWith(
       expect.stringContaining("latitude=62.03114"),
-      expect.objectContaining({ credentials: "include" })
+      expect.objectContaining({ credentials: "include" }),
     );
     expect(fetch).toHaveBeenLastCalledWith(
       expect.stringContaining("longitude=129.72289"),
-      expect.objectContaining({ credentials: "include" })
+      expect.objectContaining({ credentials: "include" }),
     );
   });
 
@@ -164,15 +182,23 @@ describe("WeatherService", () => {
     };
 
     vi.mocked(fetch)
-      .mockResolvedValueOnce(new Response(JSON.stringify(berlinWeatherResponse), { status: 200 }))
-      .mockResolvedValueOnce(new Response(JSON.stringify(hawaiiLocationResponse), { status: 200 }))
-      .mockResolvedValueOnce(new Response(JSON.stringify(hawaiiWeatherResponse), { status: 200 }));
+      .mockResolvedValueOnce(
+        new Response(JSON.stringify(berlinWeatherResponse), { status: 200 }),
+      )
+      .mockResolvedValueOnce(
+        new Response(JSON.stringify(hawaiiLocationResponse), { status: 200 }),
+      )
+      .mockResolvedValueOnce(
+        new Response(JSON.stringify(hawaiiWeatherResponse), { status: 200 }),
+      );
 
     const service = new WeatherService();
     service.initialize();
     await service.searchCity("Hawaii");
 
-    expect(service.location().label).toBe("Hawaii Kai, Hawaii, Vereinigte Staaten");
+    expect(service.location().label).toBe(
+      "Hawaii Kai, Hawaii, Vereinigte Staaten",
+    );
     expect(service.snapshot()).toMatchObject({
       condition: "clear",
       locationLabel: "Hawaii Kai, Hawaii, Vereinigte Staaten",
@@ -189,8 +215,8 @@ describe("WeatherService", () => {
           longitude: 139.69171,
           label: "Tokio, Tokio, Japan",
         }),
-        { status: 200 }
-      )
+        { status: 200 },
+      ),
     );
 
     const location = await adapter.resolveCity("Tokyo");
@@ -198,7 +224,7 @@ describe("WeatherService", () => {
     expect(location.label).toBe("Tokio, Tokio, Japan");
     expect(fetch).toHaveBeenCalledWith(
       expect.stringContaining("/api/weather/location?city=Tokyo"),
-      expect.objectContaining({ credentials: "include" })
+      expect.objectContaining({ credentials: "include" }),
     );
   });
 
@@ -220,9 +246,9 @@ describe("WeatherService", () => {
             ...berlinWeatherResponse,
             updatedAt: "2026-06-16T07:42:30.000Z",
           }),
-          { status: 200 }
-        )
-      )
+          { status: 200 },
+        ),
+      ),
     );
 
     const service = new WeatherService();
@@ -232,7 +258,7 @@ describe("WeatherService", () => {
     expect(service.snapshot()?.updatedAt).toBe("2026-06-16T07:42:30.000Z");
     expect(fetch).toHaveBeenLastCalledWith(
       expect.stringContaining("/api/weather/current"),
-      expect.objectContaining({ credentials: "include" })
+      expect.objectContaining({ credentials: "include" }),
     );
   });
 });

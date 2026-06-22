@@ -1,0 +1,68 @@
+%%{init: {
+  "theme": "base",
+  "themeVariables": {
+    "fontFamily": "Inter, Arial, sans-serif",
+    "primaryColor": "#EFF6FF",
+    "primaryBorderColor": "#0284C7",
+    "primaryTextColor": "#0F172A",
+    "actorBorder": "#0284C7",
+    "actorBkg": "#E0F2FE",
+    "actorTextColor": "#0F172A",
+    "activationBorderColor": "#0284C7",
+    "activationBkgColor": "#BAE6FD",
+    "sequenceNumberColor": "#475569",
+    "signalColor": "#334155",
+    "signalTextColor": "#0F172A",
+    "noteBkgColor": "#F8FAFC",
+    "noteBorderColor": "#CBD5E1",
+    "noteTextColor": "#0F172A"
+  }
+}}%%
+
+sequenceDiagram
+    autonumber
+    actor Nutzer
+    participant FE as Angular-Frontend
+    participant State as AppStateService
+    participant API as BackendApiService
+    participant BE as Spring-Boot-Backend
+    participant DB as PostgreSQL
+
+    rect rgb(239, 246, 255)
+        Nutzer->>FE: Wassermenge auswählen
+        FE->>State: Wasseraktion auslösen
+        State->>API: Wassermenge senden
+        API->>BE: POST /api/user/water
+    end
+
+    rect rgb(248, 250, 252)
+        activate BE
+        BE->>BE: Session prüfen
+        BE->>DB: Aktuellen Spielstand laden
+        activate DB
+        DB-->>BE: Wasserstand und Taskstatus
+        deactivate DB
+        BE->>BE: Wasserstand erhöhen
+
+        alt Tagesziel erreicht
+            BE->>BE: Wasser-Quest automatisch abschließen
+            BE->>BE: Questpunkte und Fortschritt aktualisieren
+        else Tagesziel noch offen
+            BE->>BE: Nur Wasserstand aktualisieren
+        end
+
+        BE->>DB: Aktualisierten Spielstand speichern
+        activate DB
+        DB-->>BE: Neuer Spielstand
+        deactivate DB
+        BE-->>API: Aktualisierte Dashboard-Daten
+        deactivate BE
+    end
+
+    rect rgb(240, 253, 244)
+        API-->>State: Neuer Zustand
+        State-->>FE: UI aktualisieren
+        FE-->>Nutzer: Wasserstand und Quest-Fortschritt anzeigen
+    end
+
+    Note over BE,DB: Das Backend entscheidet, ob das Tagesziel erreicht ist und die Wasser-Quest automatisch abgeschlossen wird.

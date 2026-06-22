@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="1280" viewBox="0 0 1500 1280" role="img" aria-label="Sequenzdiagramm Quest abschließen und Pal-Fortschritt aktualisieren">
+    <defs>
+        <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+            <path d="M2,2 L10,6 L2,10 Z" fill="#334155"/>
+        </marker>
+        <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+            <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#0f172a" flood-opacity="0.12"/>
+        </filter>
+    </defs>
+    <rect width="1500" height="1280" fill="#FFFFFF"/>
+
+    <text x="750.0" y="50" text-anchor="middle" font-size="28" font-weight="700" fill="#0F172A" font-family="Inter, Arial, sans-serif">Quest abschließen und Pal-Fortschritt aktualisieren</text>
+    <text x="750.0" y="82" text-anchor="middle" font-size="16" font-weight="400" fill="#475569" font-family="Inter, Arial, sans-serif">Laufzeitsicht: Nutzeraktion, Backend-Fachlogik, Persistenz und UI-Feedback</text>
+    <rect x="45" y="135" width="1410" height="295" rx="20" fill="#F0FDF4" stroke="#E2E8F0" stroke-width="1.2" />
+    <text x="95" y="163" text-anchor="start" font-size="14" font-weight="700" fill="#475569" font-family="Inter, Arial, sans-serif">Questabschluss im Frontend auslösen</text>
+    <rect x="45" y="445" width="1410" height="475" rx="20" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1.2" />
+    <text x="95" y="473" text-anchor="start" font-size="14" font-weight="700" fill="#475569" font-family="Inter, Arial, sans-serif">Fachlogik und Persistenz im Backend</text>
+    <rect x="45" y="930" width="1410" height="250" rx="20" fill="#EFF6FF" stroke="#E2E8F0" stroke-width="1.2" />
+    <text x="95" y="958" text-anchor="start" font-size="14" font-weight="700" fill="#475569" font-family="Inter, Arial, sans-serif">Aktualisierten Zustand im Frontend anzeigen</text>
+    <g filter="url(#shadow)">
+        <rect x="10" y="105" width="190" height="56" rx="14" fill="#ECFDF5" stroke="#16A34A" stroke-width="2" />
+    </g>
+    <text x="105" y="140" text-anchor="middle" font-size="15" font-weight="700" fill="#0F172A" font-family="Inter, Arial, sans-serif">Nutzer</text>
+    <line x1="105" y1="161" x2="105" y2="1225" stroke="#94A3B8" stroke-width="2" stroke-dasharray="10 8" />
+    <g filter="url(#shadow)">
+        <rect x="255" y="105" width="190" height="56" rx="14" fill="#ECFDF5" stroke="#16A34A" stroke-width="2" />
+    </g>
+    <text x="350" y="140" text-anchor="middle" font-size="15" font-weight="700" fill="#0F172A" font-family="Inter, Arial, sans-serif">Angular-Frontend</text>
+    <line x1="350" y1="161" x2="350" y2="1225" stroke="#94A3B8" stroke-width="2" stroke-dasharray="10 8" />
+    <g filter="url(#shadow)">
+        <rect x="505" y="105" width="190" height="56" rx="14" fill="#ECFDF5" stroke="#16A34A" stroke-width="2" />
+    </g>
+    <text x="600" y="140" text-anchor="middle" font-size="15" font-weight="700" fill="#0F172A" font-family="Inter, Arial, sans-serif">AppStateService</text>
+    <line x1="600" y1="161" x2="600" y2="1225" stroke="#94A3B8" stroke-width="2" stroke-dasharray="10 8" />
+    <g filter="url(#shadow)">
+        <rect x="755" y="105" width="190" height="56" rx="14" fill="#ECFDF5" stroke="#16A34A" stroke-width="2" />
+    </g>
+    <text x="850" y="140" text-anchor="middle" font-size="15" font-weight="700" fill="#0F172A" font-family="Inter, Arial, sans-serif">BackendApiService</text>
+    <line x1="850" y1="161" x2="850" y2="1225" stroke="#94A3B8" stroke-width="2" stroke-dasharray="10 8" />
+    <g filter="url(#shadow)">
+        <rect x="1025" y="105" width="190" height="56" rx="14" fill="#ECFDF5" stroke="#16A34A" stroke-width="2" />
+    </g>
+    <text x="1120" y="140" text-anchor="middle" font-size="15" font-weight="700" fill="#0F172A" font-family="Inter, Arial, sans-serif">Spring-Boot-Backend</text>
+    <line x1="1120" y1="161" x2="1120" y2="1225" stroke="#94A3B8" stroke-width="2" stroke-dasharray="10 8" />
+    <g filter="url(#shadow)">
+        <rect x="1295" y="105" width="190" height="56" rx="14" fill="#ECFDF5" stroke="#16A34A" stroke-width="2" />
+    </g>
+    <text x="1390" y="140" text-anchor="middle" font-size="15" font-weight="700" fill="#0F172A" font-family="Inter, Arial, sans-serif">PostgreSQL</text>
+    <line x1="1390" y1="161" x2="1390" y2="1225" stroke="#94A3B8" stroke-width="2" stroke-dasharray="10 8" />
+    <rect x="1108" y="385" width="24" height="560" rx="6" fill="#BBF7D0" stroke="#16A34A" stroke-width="1.3" />
+    <rect x="1378" y="555" width="24" height="75" rx="6" fill="#DCFCE7" stroke="#16A34A" stroke-width="1.3" />
+    <rect x="1378" y="795" width="24" height="75" rx="6" fill="#DCFCE7" stroke="#16A34A" stroke-width="1.3" />
+    <line x1="105" y1="190" x2="350" y2="190" stroke="#334155" stroke-width="2.2"  marker-end="url(#arrow)" />
+    <text x="227.5" y="178" text-anchor="middle" font-size="14" font-weight="500" fill="#0F172A" font-family="Inter, Arial, sans-serif">1. Klick auf &quot;Erledigen&quot;</text>
+    <line x1="350" y1="255" x2="600" y2="255" stroke="#334155" stroke-width="2.2"  marker-end="url(#arrow)" />
+    <text x="475.0" y="243" text-anchor="middle" font-size="14" font-weight="500" fill="#0F172A" font-family="Inter, Arial, sans-serif">2. Questabschluss auslösen</text>
+    <line x1="600" y1="320" x2="850" y2="320" stroke="#334155" stroke-width="2.2"  marker-end="url(#arrow)" />
+    <text x="725.0" y="308" text-anchor="middle" font-size="14" font-weight="500" fill="#0F172A" font-family="Inter, Arial, sans-serif">3. Task als erledigt melden</text>
+    <line x1="850" y1="385" x2="1120" y2="385" stroke="#334155" stroke-width="2.2"  marker-end="url(#arrow)" />
+    <text x="985.0" y="373" text-anchor="middle" font-size="14" font-weight="500" fill="#0F172A" font-family="Inter, Arial, sans-serif">4. POST /api/tasks/{id}/complete</text>
+    <path d="M1132,470 H1340 V512 H1138" fill="none" stroke="#334155" stroke-width="2.2" marker-end="url(#arrow)" />
+    <text x="1245" y="458" text-anchor="middle" font-size="14" font-weight="500" fill="#0F172A" font-family="Inter, Arial, sans-serif">5. Session prüfen</text>
+    <line x1="1120" y1="555" x2="1390" y2="555" stroke="#334155" stroke-width="2.2"  marker-end="url(#arrow)" />
+    <text x="1255.0" y="543" text-anchor="middle" font-size="14" font-weight="500" fill="#0F172A" font-family="Inter, Arial, sans-serif">6. Taskstatus des Nutzers laden</text>
+    <line x1="1390" y1="625" x2="1120" y2="625" stroke="#334155" stroke-width="2.2" stroke-dasharray="8 8" marker-end="url(#arrow)" />
+    <text x="1255.0" y="613" text-anchor="middle" font-size="14" font-weight="500" fill="#0F172A" font-family="Inter, Arial, sans-serif">7. Aktueller Taskstatus</text>
+    <path d="M1132,705 H1340 V747 H1138" fill="none" stroke="#334155" stroke-width="2.2" marker-end="url(#arrow)" />
+    <text x="1245" y="693" text-anchor="middle" font-size="14" font-weight="500" fill="#0F172A" font-family="Inter, Arial, sans-serif">8. Questpunkte, Happiness und Wachstum berechnen</text>
+    <line x1="1120" y1="795" x2="1390" y2="795" stroke="#334155" stroke-width="2.2"  marker-end="url(#arrow)" />
+    <text x="1255.0" y="783" text-anchor="middle" font-size="14" font-weight="500" fill="#0F172A" font-family="Inter, Arial, sans-serif">9. Aktualisierten Spielstand speichern</text>
+    <line x1="1390" y1="865" x2="1120" y2="865" stroke="#334155" stroke-width="2.2" stroke-dasharray="8 8" marker-end="url(#arrow)" />
+    <text x="1255.0" y="853" text-anchor="middle" font-size="14" font-weight="500" fill="#0F172A" font-family="Inter, Arial, sans-serif">10. Neuer Spielstand</text>
+    <line x1="1120" y1="945" x2="850" y2="945" stroke="#334155" stroke-width="2.2" stroke-dasharray="8 8" marker-end="url(#arrow)" />
+    <text x="985.0" y="933" text-anchor="middle" font-size="14" font-weight="500" fill="#0F172A" font-family="Inter, Arial, sans-serif">11. Aktualisierte Dashboard-Daten</text>
+    <line x1="850" y1="1010" x2="600" y2="1010" stroke="#334155" stroke-width="2.2" stroke-dasharray="8 8" marker-end="url(#arrow)" />
+    <text x="725.0" y="998" text-anchor="middle" font-size="14" font-weight="500" fill="#0F172A" font-family="Inter, Arial, sans-serif">12. Neuer Zustand</text>
+    <line x1="600" y1="1075" x2="350" y2="1075" stroke="#334155" stroke-width="2.2" stroke-dasharray="8 8" marker-end="url(#arrow)" />
+    <text x="475.0" y="1063" text-anchor="middle" font-size="14" font-weight="500" fill="#0F172A" font-family="Inter, Arial, sans-serif">13. UI-Zustand aktualisieren</text>
+    <line x1="350" y1="1140" x2="105" y2="1140" stroke="#334155" stroke-width="2.2" stroke-dasharray="8 8" marker-end="url(#arrow)" />
+    <text x="227.5" y="1128" text-anchor="middle" font-size="14" font-weight="500" fill="#0F172A" font-family="Inter, Arial, sans-serif">14. Feedback und Pal-Fortschritt anzeigen</text>
+    <rect x="360" y="1187" width="780" height="48" rx="14" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.5" />
+    <text x="750" y="1217" text-anchor="middle" font-size="15" font-weight="600" fill="#334155" font-family="Inter, Arial, sans-serif">Die Fortschrittsberechnung liegt im Backend, damit Spielstand und Pal-Fortschritt konsistent bleiben.</text>
+</svg>

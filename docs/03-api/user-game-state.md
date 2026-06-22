@@ -14,7 +14,7 @@ Alle Game-State-Endpunkte liegen unter:
 
 Liefert den spielbezogenen Zustand des aktuell authentifizierten Users.
 
-Das Frontend nutzt die Daten für Questliste, Wasserstand, Energie, Pokémon-Daten, Motivation, Quest-Punkte und Anmelde-Serie.
+Das Frontend nutzt die Daten für Questliste, Wasserstand, Energie, Pal-Daten, Motivation, Quest-Punkte und Anmelde-Serie.
 
 ## Authentifizierung
 
@@ -37,8 +37,8 @@ Felder im JSON:
 
 * `waterLevel` (integer): aktueller Wasserstand aus `hydration_ml`.
 * `foodLevel` (integer): aktueller Energiewert aus `hunger`.
-* `pokemonImageUrl` (string|null): URL zum aktuellen Pokémon-Bild oder `null`, wenn noch kein Bild verfügbar ist.
-* `pokemonLevel` (integer): aktuelles Pokémon-Level aus `pokemon_level`.
+* `palImageUrl` (string|null): URL zum aktuellen Pal-Bild oder `null`, wenn noch kein Bild verfügbar ist.
+* `palLevel` (integer): aktuelles Pal-Level aus `pal_level`.
 * `growth` (integer): Fortschritt Richtung nächstes Level.
 * `happiness` (integer): aktueller Motivationswert.
 * `pendingFeedPoints` (integer): technisch gespeicherte Quest-Punkte aus abgeschlossenen Tasks.
@@ -59,8 +59,8 @@ Ein Task-Objekt enthält:
 {
   "waterLevel": 120,
   "foodLevel": 50,
-  "pokemonImageUrl": "https://cdn.example.com/pokemon/charmander.png",
-  "pokemonLevel": 5,
+  "palImageUrl": "https://cdn.example.com/pal/starter-pal.png",
+  "palLevel": 5,
   "growth": 42,
   "happiness": 7,
   "pendingFeedPoints": 12,
@@ -124,13 +124,13 @@ Wenn mindestens ein kompletter Kalendertag ausgelassen wurde, greift zusätzlich
 
 Regeln für verpasste Tage:
 
-* Pro verpasstem Tag: `pokemonLevel - 1`, aber nie unter Level `1`.
+* Pro verpasstem Tag: `palLevel - 1`, aber nie unter Level `1`.
 * Pro verpasstem Tag: `happiness - 10`, aber nie unter `0`.
 * Wenn ein Level verloren geht, wird `growth` auf `0` gesetzt.
 
 Beispiel: letzter Login am 14.06., nächster Login am 16.06.
 
-Der 15.06. wurde verpasst, daher verliert das Pokémon ein Level und 10 Motivation.
+Der 15.06. wurde verpasst, daher verliert das Pal ein Level und 10 Motivation.
 
 ## Tagesreset für Wasser und Tasks
 
@@ -142,8 +142,8 @@ Das Frontend aktualisiert den Dashboard-Spielstand in einer laufenden Session re
 
 Dadurch wird der Reset nach Ablauf des Intervalls sichtbar.
 
-* Standard und Dev-Profil: `pokehabit.daily-reset-interval=PT24H`.
-* Für manuelle Kurztests kann temporär `pokehabit.daily-reset-interval=PT1M` genutzt werden.
+* Standard und Dev-Profil: `palhabit.daily-reset-interval=PT24H`.
+* Für manuelle Kurztests kann temporär `palhabit.daily-reset-interval=PT1M` genutzt werden.
 * Diese Kurztest-Konfiguration wird nicht dauerhaft eingecheckt.
 * Wenn das Intervall erreicht ist, wird `hydration_ml` auf `0` gesetzt.
 * Wenn das Intervall erreicht ist, werden alle `user_tasks.completed`-Flags des Users auf `false` gesetzt.
@@ -160,8 +160,8 @@ Relevante Datenbankfelder:
 
 * `hydration_ml`
 * `hunger`
-* `pokemon_level`
-* `pokemon_xp`
+* `pal_level`
+* `pal_xp`
 * `happiness`
 * `pending_feed_points`
 * `last_level_up_at`
@@ -173,8 +173,8 @@ Die Java-Persistenzschicht mappt diese Felder über `UserEntity`:
 
 * `hydrationMl` -> `hydration_ml` (int)
 * `hunger` -> `hunger` (int)
-* `pokemonLevel` -> `pokemon_level` (int)
-* `pokemonXp` -> `pokemon_xp` (int)
+* `palLevel` -> `pal_level` (int)
+* `palXp` -> `pal_xp` (int)
 * `streak` -> `streak` (int)
 * `pendingFeedPoints` -> `pending_feed_points` (int)
 * `lastLevelUpAt` -> `last_level_up_at` (timestamp)
@@ -203,7 +203,7 @@ Alle Datumsvergleiche für Tagesgrenzen verwenden UTC.
 * Dabei werden Wasser auf `0` gesetzt, Quest-Completions zurückgesetzt und `lastDailyResetAt` aktualisiert.
 * `SelfCareApplicationTests` prüft Spring-Kontext, zentrale Beans, aktives `test`-Profil, H2-In-Memory-Datenbank und UTC-`Clock`-Bean.
 * Frontend-Service-Tests prüfen das Mapping der Backend-Payloads in UI-Modelle.
-* Der Docker Quality Hub führt Backend-, Frontend-, Security-, Coverage- und E2E-Checks gesammelt aus.
+* Der Quality Runner führt Backend-, Frontend-, Security-, Coverage- und E2E-Checks gesammelt aus.
 
 ## Dateiablage
 
@@ -219,7 +219,7 @@ docs/03-api/user-game-state.md
 
 Der Wert steigt beim Abschluss von Tasks.
 
-Wenn `growth >= 100` und der 2-Tage-Cooldown seit `lastLevelUpAt` erfüllt ist, erhöht das Backend `pokemonLevel`.
+Wenn `growth >= 100` und der 2-Tage-Cooldown seit `lastLevelUpAt` erfüllt ist, erhöht das Backend `palLevel`.
 
 Danach setzt das Backend `growth` zurück und aktualisiert `lastLevelUpAt`.
 

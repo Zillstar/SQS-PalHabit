@@ -5,19 +5,24 @@ flowchart TB
         CTRL["Controller: REST-Endpunkte"]
         SEC["Config / Security: Auth, Autorisierung, CORS"]
         SVC["Service: Businesslogik"]
-        DOM["Domain: User, Task, Pet/Pokemon"]
+        DOM["Domain: User, Task, Pet/Pal, Weather"]
         REPO["Repository: Spring Data JPA"]
-        INT["Integration: PokeAPI Client"]
+        INT["Integration: Open-Meteo Client"]
+        SEED["Seed / Migration: Pal-Stammdaten"]
     end
 
     DB[(PostgreSQL)]
-    POKEAPI["PokeAPI"]
+    PALAPI["PalAPI: ursprüngliche Datenquelle"]
+    WEATHER["Open-Meteo"]
 
     FE -->|REST JSON| CTRL
-    CTRL --> SEC
+    SEC -. schützt .-> CTRL
     CTRL --> SVC
     SVC --> DOM
     SVC --> REPO
     SVC --> INT
-    REPO -->|JPA JDBC| DB
-    INT -->|HTTPS JSON| POKEAPI
+    REPO -->|JPA / JDBC| DB
+    INT -->|HTTPS JSON / Runtime| WEATHER
+
+    PALAPI -.->|Datenbasis, nicht Runtime| SEED
+    SEED -.->|befüllt pal-Tabellen| DB

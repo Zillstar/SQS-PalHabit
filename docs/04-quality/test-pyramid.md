@@ -1,6 +1,8 @@
 # Testpyramide
 
-Die Testpyramide ist für PokeHabit der zentrale SQS-Nachweis. Wir trennen die
+Diese Seite ist Teil des übergeordneten Testkonzepts. Das vollständige Testkonzept befindet sich unter `04 Quality / Testkonzept`.
+
+Die Testpyramide ist für PalHabit der zentrale SQS-Nachweis. Wir trennen die
 Tests nach Zweck: viele schnelle Unit-Tests unten, weniger Integrations- und
 Controller-Tests in der Mitte, wenige browserbasierte E2E-Flows oben. Ergänzt
 wird das durch Architektur-, Security- und statische Analysechecks.
@@ -13,7 +15,7 @@ wird das durch Architektur-, Security- und statische Analysechecks.
 | Controller-/Security-nahe Tests | HTTP-Status, Auth-Pflicht, Fehlerkörper und Session-Verhalten prüfen                                   | `TaskControllerTest`, `UserControllerTest`, `AuthenticationControllerUnitTest`                                           | `mvn test`                                |
 | Integrationstests               | Spring-Kontext, Repositorys und echte Persistenzpfade mit H2 prüfen                                    | `AuthenticationControllerIntegrationTest`, `UserControllerIntegrationTest`, `AuthenticationControllerConcurrentSignUpIT` | `mvn verify` / Failsafe im Verify-Lauf    |
 | Architekturtests                | Paketregeln und Schichtengrenzen prüfen                                                                | `ArchitectureTest` mit ArchUnit                                                                                          | `mvn test`                                |
-| Externe-Service-Tests           | Externe API-Anbindungen ohne echtes Internet prüfen                                                    | `PokeApiPokemonServiceTest`, `weather.service.test.ts`, `weather-appearance.logic.test.ts`                               | `mvn test`, `npm test`                    |
+| Externe-Service-Tests           | Externe API-Anbindungen ohne echtes Internet prüfen                                                    | `PalApiPalServiceTest`, `weather.service.test.ts`, `weather-appearance.logic.test.ts`                               | `mvn test`, `npm test`                    |
 | Frontend-Supply-Chain-Security  | Lockfile und npm-Audit prüfen                                                                          | `npm-security.test.ts`, `npm audit`                                                                                      | `npm run security:frontend`               |
 | E2E-Tests                       | sichtbare Nutzerflüsse im Browser prüfen; ein Docker-Smoke-Test prüft zusätzlich echte `/api`-Requests | `user-journey.spec.ts`, `starter-evolution.spec.ts`, `fullstack-smoke.spec.ts`                                           | `npm run test:e2e`, Docker-Quality-Runner |
 
@@ -72,14 +74,10 @@ Fuer lokale Java-25-Laeufe aktiviert das Maven-Profil
 und `jacoco.skip=true`. CI bleibt auf Java 21 ausgerichtet; dort bleibt JaCoCo
 aktiv und liefert den Coverage-Nachweis.
 
-## Quality Hub
+## Quality Runner
 
-Der Quality Hub führt die Pyramide nicht nur einzeln im Terminal aus, sondern
-sammelt die Ergebnisse an einer Stelle:
-
-```bash
-docker compose --profile quality up --build
-```
+Der Quality Runner führt die Pyramide nicht nur einzeln im Terminal aus, sondern
+gesammelt.
 
 Pflichtchecks im Runner:
 
@@ -103,6 +101,5 @@ In der Präsentation nicht jede Testdatei einzeln erklären. Besser:
 
 1. Testpyramide zeigen.
 2. Ein Beispiel pro Ebene nennen.
-3. Im Quality Hub zeigen, dass die Checks wirklich gelaufen sind.
-4. Kurz sagen, was das Gate rot machen würde: Tests, Security, Typecheck, Lint
+3. Kurz sagen, was das Gate rot machen würde: Tests, Security, Typecheck, Lint
    oder Backend-Analysefehler.

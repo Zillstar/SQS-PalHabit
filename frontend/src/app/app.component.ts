@@ -1,6 +1,5 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { AppStateService } from './core/services/app-state.service';
 
 @Component({
   selector: 'sqs-root',
@@ -10,6 +9,4 @@ import { AppStateService } from './core/services/app-state.service';
   styleUrl: './app.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent {
-  readonly appState = inject(AppStateService);
-}
+export class AppComponent {}

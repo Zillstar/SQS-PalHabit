@@ -1,45 +1,45 @@
-# ADR-004: PokeAPI als externer Backend-Service
+# ADR-004: PalAPI als externer Backend-Service
 
 ## Status
-Accepted
+Akzeptiert
 
-## Context
-Die App braucht Pokémon-Daten für den Starter-Partner. Die PDF-Checkliste
+## Kontext
+Die App braucht Pal-Daten für den Starter-Partner. Die PDF-Checkliste
 verlangt außerdem, dass das Backend selbst mit mindestens einem externen
-Service spricht. PokeAPI passt dazu gut, weil die Starter-Pokémon dort ohne API
+Service spricht. PalAPI passt dazu gut, weil die Starter-Pal dort ohne API
 Key abrufbar sind und die Daten fachlich wirklich zur App gehören.
 
-## Alternatives
+## Alternativen
 - Nur lokale Starter-Daten pflegen.
-- Pokémon-Daten ausschließlich im Frontend laden.
-- Einen kommerziellen Pokémon-Service anbinden.
+- Pal-Daten ausschließlich im Frontend laden.
+- Einen kommerziellen Pal-Service anbinden.
 
-## Decision
-Das Backend nutzt PokeAPI (`https://pokeapi.co/api/v2`) beim Anlegen eines
-Users, um fehlende Starter-Pokémon in der Datenbank zu befüllen. Bereits
-vorhandene Pokémon werden wiederverwendet, damit Registrierungen nicht
+## Entscheidung
+Das Backend nutzt PalAPI (`https://example.com/pal-api`) beim Anlegen eines
+Users, um fehlende Starter-Pal in der Datenbank zu befüllen. Bereits
+vorhandene Pal werden wiederverwendet, damit Registrierungen nicht
 unnötig externe Requests auslösen und vorhandene Namen/Bilder nicht
 überschrieben werden. Lokale Evolutions-Metadaten dürfen ergänzt werden, weil
 die App nur die drei Starter-Ketten braucht.
 
 Abgerufene Daten:
 
-- Pokémon-ID
+- Pal ID
 - Name
 - Official artwork
 
-Der Zugriff läuft mit kurzen Timeouts. Wenn PokeAPI nicht erreichbar ist, einen
+Der Zugriff läuft mit kurzen Timeouts. Wenn PalAPI nicht erreichbar ist, einen
 Fehlerstatus liefert oder unvollständige Daten zurückgibt, nutzt das Backend den
 lokalen Starter-Katalog als Fallback. Im Testprofil sind externe Aufrufe
 deaktiviert; der Service selbst wird mit einem lokalen HTTP-Stub getestet.
 
-## Consequences
-- Die App startet auch ohne Internet oder bei PokeAPI-Ausfall weiter.
+## Konsequenzen
+- Die App startet auch ohne Internet oder bei PalAPI-Ausfall weiter.
 - Der externe Service ist im Backend nachweisbar und nicht nur im Frontend.
 - Tests bleiben stabil, weil sie nicht von echter Netzverfügbarkeit abhängen.
 - Bei produktiver Nutzung wäre Caching sinnvoll, damit Registrierungen nicht
   unnötig viele externe Requests auslösen.
 
-## Downsides
+## Nachteile
 - Es gibt eine zusätzliche externe Abhängigkeit.
-- Die Pokémon-Daten sind nur so aktuell und verfügbar wie PokeAPI.
+- Die Pal-Daten sind nur so aktuell und verfügbar wie PalAPI.

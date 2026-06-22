@@ -109,11 +109,17 @@ public class DevDataSeeder implements ApplicationRunner {
 
     private void seedTasks() {
         for (SeedTask task : defaultTasks()) {
-            TaskEntity entity = taskRepository.findByTitle(task.title())
-                    .or(() -> task.legacyTitle() == null
-                            ? java.util.Optional.empty()
-                            : taskRepository.findByTitle(task.legacyTitle()))
-                    .orElseGet(() -> {
+            var existingTask = taskRepository.findByTitle(task.title());
+
+            for (String legacyTitle : task.legacyTitles()) {
+                if (existingTask.isPresent()) {
+                    break;
+                }
+
+                existingTask = taskRepository.findByTitle(legacyTitle);
+            }
+
+            TaskEntity entity = existingTask.orElseGet(() -> {
                 TaskEntity newTask = new TaskEntity();
                 return newTask;
             });
@@ -127,19 +133,44 @@ public class DevDataSeeder implements ApplicationRunner {
 
     private List<SeedTask> defaultTasks() {
         return List.of(
-                new SeedTask("Wasser trinken", null, "Trinke Wasser und speichere deinen Fortschritt im Backend.", 10),
-                new SeedTask("30 Minuten lernen", null, "Schließe eine fokussierte Lerneinheit ab.", 20),
-                new SeedTask("Sport erledigen", null, "Bewegung bringt Feed-Punkte für dein Pokémon.", 20),
                 new SeedTask(
-                        "Workspace aufräumen",
-                        "Workspace aufraeumen",
+                        "Wasser trinken",
+                        List.of(),
+                        "Trinke Wasser und speichere deinen Fortschritt im Backend.",
+                        10
+                ),
+                new SeedTask(
+                        "30 Minuten lernen",
+                        List.of(),
+                        "Schließe eine fokussierte Lerneinheit ab.",
+                        20
+                ),
+                new SeedTask(
+                        "Sport erledigen",
+                        List.of(),
+                        "Bewegung bringt Feed-Punkte für dein Pokémon.",
+                        20
+                ),
+                new SeedTask(
+                        "Arbeitsplatz aufräumen",
+                        List.of("Clean workspace", "Workspace aufräumen", "Workspace aufraeumen"),
                         "Räume deinen Arbeitsbereich für besseren Fokus auf.",
                         15
                 ),
-                new SeedTask("10 Seiten lesen", null, "Lies zehn Seiten und sammle Routinepunkte.", 10)
+                new SeedTask(
+                        "10 Seiten lesen",
+                        List.of(),
+                        "Lies zehn Seiten und sammle Routinepunkte.",
+                        10
+                )
         );
     }
 
-    private record SeedTask(String title, String legacyTitle, String description, int feedPoints) {
+    private record SeedTask(
+            String title,
+            List<String> legacyTitles,
+            String description,
+            int feedPoints
+    ) {
     }
 }

@@ -1,6 +1,6 @@
 # Quality Hub
 
-Der Quality Hub ist das sichtbare SQS-Dashboard für die Abgabe. Er startet per
+Der Quality Hub ist das sichtbare SQS-Dashboard fuer die Abgabe. Er startet per
 Docker Compose und zeigt echte Ergebnisse aus Backend, Frontend, Security,
 Architektur, Coverage und E2E.
 
@@ -27,10 +27,17 @@ Danach:
 - `npm test`
 - `npm run test:coverage`
 - `npm run lint`
+- `npm run format:check`
 - `npm run security:frontend`
 - optional `npm run test:e2e`
 
-Die Ergebnisse liegen im Docker-Volume `quality_output` und werden im Hub unter
-`/reports/` angezeigt.
+## Nachweise
 
-Ausführliche Doku: `quality/README.md` und `docs/04-quality/test-pyramid.md`.
+Der Hub sammelt Logs, Coverage-Reports und Playwright-Nachweise im Docker-Volume
+`quality_output`. Die Daten werden im Browser unter `/reports/` eingebunden.
+
+Der Quality Hub ersetzt keine CI-Plattform, ist aber fuer die Semesterarbeit ein
+sehr guter sichtbarer Nachweis, weil Pruefer die Qualitaetschecks lokal
+nachvollziehen koennen.
+
+Ausfuehrliche Doku: `quality/README.md` und `docs/04-quality/`.

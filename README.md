@@ -1,7 +1,16 @@
-# PokeHabit
+# PalHabit
 
-PokeHabit ist unsere gamifizierte Self-Care-App für die SQS-Semesterarbeit. Der
+PalHabit ist unsere gamifizierte Self-Care-App für die SQS-Semesterarbeit. Der
 Stack besteht aus Angular-Frontend, Spring-Boot-Backend und PostgreSQL.
+
+Dieses Projekt ist ein nicht-kommerzielles Studienprojekt im Rahmen der SQS-Semesterarbeit. Pokémon-Daten und -Sprites werden über 
+die öffentliche PokeAPI eingebunden. Pokémon, Pokémon-Namen, Figuren und zugehörige Bilder/Marken sind Eigentum der jeweiligen 
+Rechteinhaber. Dieses Projekt steht in keiner Verbindung zu Nintendo, Game Freak, Creatures Inc. oder The Pokémon Company und wird 
+von diesen weder unterstützt noch autorisiert. Die PokeAPI wird ausschließlich als externe Datenquelle zu Demonstrations- und 
+Ausbildungszwecken verwendet.
+
+Für eine kommerzielle Nutzung, öffentliche Produktvermarktung oder App-Store-Veröffentlichung wäre eine gesonderte rechtliche 
+Prüfung beziehungsweise eine Erlaubnis der Rechteinhaber erforderlich.
 
 ## One-Click-Start
 
@@ -13,11 +22,25 @@ Stack besteht aus Angular-Frontend, Spring-Boot-Backend und PostgreSQL.
 
 ### App starten
 
+# Variante 1
+
+```bash
+.\scripts\setup.ps1
+.\scripts\start.ps1
+```
+
+# Variante 2
 Der normale Demo-Start startet PostgreSQL, Backend und Frontend:
 
 ```bash
 docker compose up --build
 ```
+
+Alternativ:
+```bash
+./scripts/start.ps1
+```
+
 
 Danach sind erreichbar:
 
@@ -26,24 +49,6 @@ Danach sind erreichbar:
 
 Beim ersten Start werden die Docker-Images gebaut. Das kann ein paar Minuten
 dauern. Spätere Starts sind deutlich schneller.
-
-### App mit Quality Hub starten
-
-Für die Abgabe oder Präsentation kann zusätzlich das
-Software-Qualitätssicherungs-Dashboard gestartet werden:
-
-```bash
-docker compose --profile quality up --build
-```
-
-Danach sind erreichbar:
-
-- App: `http://localhost:3000`
-- Backend: `http://localhost:8181`
-- Quality Hub: `http://localhost:8088`
-
-Der Quality Hub zeigt die Ergebnisse aus Backend-Tests, Frontend-Tests,
-Coverage, Linting, Security-Checks und optionalem E2E-Flow.
 
 ### Demo-Login
 
@@ -79,7 +84,7 @@ docker compose down -v
 Die Ports sind Defaults und können bei lokalen Konflikten überschrieben werden:
 
 ```bash
-FRONTEND_PORT=3001 BACKEND_PORT=8182 QUALITY_HUB_PORT=8089 docker compose --profile quality up --build
+FRONTEND_PORT=3001 BACKEND_PORT=8182 docker compose --build
 ```
 
 Unter PowerShell:
@@ -87,8 +92,7 @@ Unter PowerShell:
 ```powershell
 $env:FRONTEND_PORT = "3001"
 $env:BACKEND_PORT = "8182"
-$env:QUALITY_HUB_PORT = "8089"
-docker compose --profile quality up --build
+docker compose --build
 ```
 
 ### Häufige Probleme
@@ -167,10 +171,7 @@ Oder über das Script mit eigenen Koordinaten:
 powershell -ExecutionPolicy Bypass -File .\scripts\weather-curl-check.ps1 -Latitude 21.29637 -Longitude -157.70175 -Label "Mein Ort" -RawJson
 ```
 
-## Quality Hub
-
-Der Quality Hub ist unser lokales SQS-Dashboard. Er zeigt echte Ergebnisse aus
-dem Runner, nicht nur eine manuell gepflegte Checkliste:
+## Quality Runner
 
 - Backend-Tests mit JaCoCo
 - Checkstyle und SpotBugs
@@ -179,7 +180,6 @@ dem Runner, nicht nur eine manuell gepflegte Checkliste:
 - optionaler Playwright-E2E-Flow gegen den Docker-App-Stack
 
 Der Runner schreibt `report.json`, Logs und HTML-Reports in ein Docker-Volume.
-Der Hub liest diese Daten und aktualisiert die Ansicht automatisch.
 
 ## Dokumentation
 

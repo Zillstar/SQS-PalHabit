@@ -1,0 +1,60 @@
+%%{init: {
+  "theme": "base",
+  "themeVariables": {
+    "fontFamily": "Inter, Arial, sans-serif",
+    "primaryColor": "#ECFDF5",
+    "primaryBorderColor": "#16A34A",
+    "primaryTextColor": "#0F172A",
+    "actorBorder": "#16A34A",
+    "actorBkg": "#DCFCE7",
+    "actorTextColor": "#0F172A",
+    "activationBorderColor": "#16A34A",
+    "activationBkgColor": "#BBF7D0",
+    "sequenceNumberColor": "#475569",
+    "signalColor": "#334155",
+    "signalTextColor": "#0F172A",
+    "noteBkgColor": "#F8FAFC",
+    "noteBorderColor": "#CBD5E1",
+    "noteTextColor": "#0F172A"
+  }
+}}%%
+
+sequenceDiagram
+    autonumber
+    actor Nutzer
+    participant FE as Angular-Frontend
+    participant State as AppStateService
+    participant API as BackendApiService
+    participant BE as Spring-Boot-Backend
+    participant DB as PostgreSQL
+
+    rect rgb(240, 253, 244)
+        Nutzer->>FE: Klick auf "Erledigen"
+        FE->>State: Questabschluss auslösen
+        State->>API: Task als erledigt melden
+        API->>BE: POST /api/tasks/{id}/complete
+    end
+
+    rect rgb(248, 250, 252)
+        activate BE
+        BE->>BE: Session prüfen
+        BE->>DB: Taskstatus des Nutzers laden
+        activate DB
+        DB-->>BE: Aktueller Taskstatus
+        deactivate DB
+        BE->>BE: Questpunkte, Happiness und Wachstum berechnen
+        BE->>DB: Aktualisierten Spielstand speichern
+        activate DB
+        DB-->>BE: Neuer Spielstand
+        deactivate DB
+        BE-->>API: Aktualisierte Dashboard-Daten
+        deactivate BE
+    end
+
+    rect rgb(239, 246, 255)
+        API-->>State: Neuer Zustand
+        State-->>FE: UI-Zustand aktualisieren
+        FE-->>Nutzer: Feedback und Pal-Fortschritt anzeigen
+    end
+
+    Note over BE,DB: Die fachliche Fortschrittsberechnung liegt im Backend und wird persistent gespeichert.

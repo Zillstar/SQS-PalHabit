@@ -200,3 +200,23 @@ gradle-app.setting
 .github/modernize/
 start.md
 sqsagent.md
+SQS_v2_tech.pptx
+SQS_v2_rettung.pptx
+SQS_praesi_1_0.pptx
+~$*.pptx
+
+# ---------------------------------------------------------------------------
+# Local presentation drafts and generated presentation scripts
+# ---------------------------------------------------------------------------
+SQS_praesi*.pptx
+SQS_presentation*.pptx
+scripts/rebuild_sqs_presentation*.ps1
+scripts/rebuild_sqs_project_presentation*
+
+# ---------------------------------------------------------------------------
+# Local CI / coverage workflow experiments
+# ---------------------------------------------------------------------------
+.github/workflows/ci.yml
+scripts/rebuild_sqs_presentation_1_0.ps1
+scripts/rebuild_sqs_presentation_1_0.ps1
+scripts/rebuild_sqs_presentation_1_0.ps1

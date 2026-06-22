@@ -219,7 +219,7 @@ function createInitialTasks(): TaskItem[] {
     createQualityTask({
       slug: 'clean-room',
       title: 'Zimmer aufräumen',
-      description: 'Ein klarer Raum gibt Fokus und bringt solide Quest-Punkte.',
+      description: 'Ein klarer Raum gibt Fokus und bringt soliden Fortschritt.',
       icon: 'layers',
       tone: 'slate',
       category: 'delivery',

@@ -1,0 +1,50 @@
+%%{init: {
+  "theme": "base",
+  "themeVariables": {
+    "fontFamily": "Inter, Arial, sans-serif",
+    "primaryColor": "#F0F9FF",
+    "primaryBorderColor": "#0284C7",
+    "primaryTextColor": "#0F172A",
+    "actorBorder": "#0284C7",
+    "actorBkg": "#E0F2FE",
+    "actorTextColor": "#0F172A",
+    "activationBorderColor": "#0284C7",
+    "activationBkgColor": "#BAE6FD",
+    "sequenceNumberColor": "#475569",
+    "signalColor": "#334155",
+    "signalTextColor": "#0F172A",
+    "noteBkgColor": "#F8FAFC",
+    "noteBorderColor": "#CBD5E1",
+    "noteTextColor": "#0F172A"
+  }
+}}%%
+
+sequenceDiagram
+    autonumber
+    actor Nutzer
+    participant FE as Angular-Frontend
+    participant BE as Spring-Boot-Backend
+    participant WS as WeatherService
+    participant OM as Open-Meteo
+
+    Note over Nutzer,FE: Frontend: Dashboard öffnen
+    Nutzer->>FE: Dashboard öffnen
+    FE->>BE: GET /api/weather
+
+    Note over BE,OM: Backend: Wetterdaten abrufen
+    activate BE
+    BE->>WS: Wetterdaten anfordern
+    activate WS
+    WS->>OM: Wetterdaten abrufen
+    activate OM
+    OM--xWS: Timeout oder Fehler
+    deactivate OM
+    WS->>WS: Fehler behandeln
+    WS-->>BE: Fallback-Wettermodell
+    deactivate WS
+    BE-->>FE: Standard-Wetterzustand
+    deactivate BE
+
+    Note over FE,Nutzer: Frontend: Fallback-Szene anzeigen
+    FE->>FE: Standard-Hintergrund auswählen
+    FE-->>Nutzer: Dashboard bleibt benutzbar

@@ -8,7 +8,7 @@ dem Spring-Boot-Backend.
 ## Zweck
 
 Das Frontend zeigt Splash-Screen, Login/Registrierung und das Dashboard mit
-Tagesquests, Wassertracking, Wetter-Szene und Pokémon-Fortschritt. Komponenten
+Tagesquests, Wassertracking, Wetter-Szene und Pal-Fortschritt. Komponenten
 sollen dabei möglichst wenig Fachlogik enthalten: Sie zeigen Daten an, geben
 Nutzeraktionen nach oben weiter und lassen Services die API-Aufrufe und den
 zentralen Zustand koordinieren.
@@ -21,7 +21,7 @@ zentralen Zustand koordinieren.
 | Page Components                  | `SplashPageComponent`, `AuthPageComponent`, `DashboardPageComponent`.                       | Routen entsprechen direkt den sichtbaren Nutzerwegen.      |
 | Smart Page, Presentational Child | Pages injizieren Services; Child-Komponenten nutzen Inputs/Outputs.                         | API- und Zustandslogik bleibt zentral.                     |
 | Facade Service                   | `AppStateService` bündelt Login, Registrierung, Quest, Wasser, Logout und Account-Löschung. | Komponenten müssen keine API-Details kennen.               |
-| API Adapter                      | `BackendApiService`, `PokemonService` und `WeatherService` kapseln externe Aufrufe.         | Fehlerbehandlung und Mapping liegen nicht in Templates.    |
+| API Adapter                      | `BackendApiService`, `PalService` und `WeatherService` kapseln externe Aufrufe.         | Fehlerbehandlung und Mapping liegen nicht in Templates.    |
 | Signals                          | Zustand und abgeleitete Werte laufen über Angular Signals und `computed`.                   | UI aktualisiert sich nachvollziehbar bei State-Änderungen. |
 | Route Guards                     | `authGuard` und `guestGuard` prüfen Session/Restore.                                        | Dashboard und Auth-Seite bleiben sauber getrennt.          |
 
@@ -52,7 +52,7 @@ frontend/src/app
 | `core/guards`                     | Zugriff auf `/auth` und `/dashboard` steuern.                                    |
 | `core/services/AppStateService`   | Zentraler Frontend-Zustand und Methoden für Nutzeraktionen.                      |
 | `core/services/BackendApiService` | HTTP-Aufrufe, Fehlertexte und Mapping von Backend-Daten ins Frontend-Modell.     |
-| `core/services/PokemonService`    | Pokémon-Sprite-Daten mit lokalem Fallback.                                       |
+| `core/services/PalService`    | Pal-Bild-Daten mit lokalem Fallback.                                       |
 | `core/services/WeatherService`    | Wetterdaten und Fallback-Szene.                                                  |
 | `core/state/app-state.logic.ts`   | Reine Hilfslogik, z. B. Pflegezustand und testbare Regeln.                       |
 | `pages/auth`                      | Login-/Registrierungsformular, Validierung und Ladezustand.                      |
@@ -67,7 +67,7 @@ frontend/src/app
 Nutzeraktion
   -> Page- oder Child-Komponente
   -> AppStateService
-  -> BackendApiService / WeatherService / PokemonService
+  -> BackendApiService / WeatherService / PalService
   -> Backend oder externe API
   -> gemappter Snapshot im AppStateService
   -> Angular Signals
@@ -87,7 +87,7 @@ nicht durch Doppelklicks verfälscht werden.
 | `TaskListComponent`       | Tasks, Wasserstand, Questfortschritt, Busy-State. | Questabschluss oder Wasser-Menge.                     |
 | `TaskCardComponent`       | Einzelne Task, Lock-/Busy-State.                  | Abschlusswunsch für diese Task.                       |
 | `HydrationGaugeComponent` | Wasserstand, Ziel, Busy-State.                    | Gewählte Wassermenge.                                 |
-| `PetCardComponent`        | Pet-, Wetter-, Pokémon- und Feedbackdaten.        | Test-Level-Up, Motivationstest, Wetteraktualisierung. |
+| `PetCardComponent`        | Pet-, Wetter-, Pal- und Feedbackdaten.        | Test-Level-Up, Motivationstest, Wetteraktualisierung. |
 | `TopBarComponent`         | User-, Demo- und Fortschrittsdaten.               | Neu laden, Logout, Account löschen.                   |
 
 ## Bewusst nicht gemacht

@@ -5,7 +5,7 @@ Akzeptiert
 
 ## Kontext
 Wir brauchen ein serverseitiges Framework für eine Java-basierte REST-API, die sich mit einer
-relationalen Datenbank und einem externen HTTP-Service (PokeAPI) integriert. Das Framework sollte
+relationalen Datenbank und einem externen HTTP-Service (PalAPI) integriert. Das Framework sollte
 starke Standards für Sicherheit, Testing und Deployment bereitstellen.
 
 ## Alternativen

@@ -36,18 +36,18 @@ describe("BackendApiService", () => {
         }),
       );
 
-    const snapshot = await new BackendApiService().login("zoe", "secret123");
+    const snapshot = await new BackendApiService().login("batman", "secret123");
 
     expect(fetchMock).toHaveBeenNthCalledWith(
       1,
       "/api/auth/login",
       expect.objectContaining({
-        body: JSON.stringify({ username: "zoe", password: "secret123" }),
+        body: JSON.stringify({ username: "batman", password: "secret123" }),
         credentials: "include",
         method: "POST",
       }),
     );
-    expect(snapshot.user.userName).toBe("zoe");
+    expect(snapshot.user.userName).toBe("batman");
     expect(snapshot.backendGameState.pokemonImageUrl).toBe("/assets/egg.png");
     expect(snapshot.gameState.tasks.map((task) => task.title)).toEqual([
       "Wasser trinken",
@@ -103,11 +103,11 @@ describe("BackendApiService", () => {
       );
 
     const cappedSnapshot = await new BackendApiService().login(
-      "zoe",
+      "batman",
       "secret123",
     );
     const flooredSnapshot = await new BackendApiService().login(
-      "zoe",
+      "batman",
       "secret123",
     );
 
@@ -115,7 +115,7 @@ describe("BackendApiService", () => {
     expect(flooredSnapshot.gameState.pet.availableFoodPoints).toBe(0);
   });
 
-  it("registriert den gewÃ¤hlten Starter und nutzt Backend-PokÃ©monnamen im Snapshot", async () => {
+  it("registriert den gewählten Starter und nutzt Backend-Pokémonnamen im Snapshot", async () => {
     const fetchMock = vi
       .spyOn(globalThis, "fetch")
       .mockResolvedValueOnce(jsonResponse({ message: "created" }))
@@ -139,9 +139,9 @@ describe("BackendApiService", () => {
       );
 
     const snapshot = await new BackendApiService().signup({
-      username: "zoe",
+      username: "batman",
       password: "secret123",
-      userName: "zoe",
+      userName: "batman",
       starterPokemonSpecies: "charmander",
     });
 
@@ -150,7 +150,7 @@ describe("BackendApiService", () => {
       "/api/auth/signup",
       expect.objectContaining({
         body: JSON.stringify({
-          username: "zoe",
+          username: "batman",
           password: "secret123",
           starterPokemonId: 4,
         }),
@@ -194,9 +194,9 @@ describe("BackendApiService", () => {
         );
 
       const snapshot = await new BackendApiService().signup({
-        username: "zoe",
+        username: "batman",
         password: "secret123",
-        userName: "zoe",
+        userName: "batman",
         starterPokemonSpecies,
       });
 
@@ -205,7 +205,7 @@ describe("BackendApiService", () => {
         "/api/auth/signup",
         expect.objectContaining({
           body: JSON.stringify({
-            username: "zoe",
+            username: "batman",
             password: "secret123",
             starterPokemonId,
           }),
@@ -242,7 +242,7 @@ describe("BackendApiService", () => {
         }),
       );
 
-    const snapshot = await new BackendApiService().completeTask("zoe", "2");
+    const snapshot = await new BackendApiService().completeTask("batman", "2");
 
     expect(fetchMock).toHaveBeenNthCalledWith(
       1,
@@ -288,7 +288,7 @@ describe("BackendApiService", () => {
         jsonResponse([{ id: 1, title: "Wasser trinken" }]),
       );
 
-    const snapshot = await new BackendApiService().addWater("zoe", 500);
+    const snapshot = await new BackendApiService().addWater("batman", 500);
 
     expect(fetchMock).toHaveBeenNthCalledWith(
       1,
@@ -327,7 +327,7 @@ describe("BackendApiService", () => {
         jsonResponse([{ id: 2, title: "30 Minuten lernen" }]),
       );
 
-    const snapshot = await new BackendApiService().testLevelUp("zoe");
+    const snapshot = await new BackendApiService().testLevelUp("batman");
 
     expect(fetchMock).toHaveBeenNthCalledWith(
       1,
@@ -363,7 +363,9 @@ describe("BackendApiService", () => {
         jsonResponse([{ id: 2, title: "30 Minuten lernen" }]),
       );
 
-    const snapshot = await new BackendApiService().testMotivationDecay("zoe");
+    const snapshot = await new BackendApiService().testMotivationDecay(
+      "batman",
+    );
 
     expect(fetchMock).toHaveBeenNthCalledWith(
       1,
@@ -397,7 +399,7 @@ describe("BackendApiService", () => {
       .mockResolvedValueOnce(jsonResponse([]));
 
     const snapshot = await new BackendApiService().testLevelUp(
-      "zoe",
+      "batman",
       "charmander",
     );
 
@@ -422,9 +424,9 @@ describe("BackendApiService", () => {
 
     await expect(
       new BackendApiService().signup({
-        username: "zoe",
+        username: "batman",
         password: "secret123",
-        userName: "zoe",
+        userName: "batman",
         starterPokemonSpecies: "bulbasaur",
       }),
     ).rejects.toMatchObject({
@@ -440,7 +442,7 @@ describe("BackendApiService", () => {
     );
 
     await expect(
-      new BackendApiService().login("zoe", "secret123"),
+      new BackendApiService().login("batman", "secret123"),
     ).rejects.toMatchObject({
       status: 0,
       message:

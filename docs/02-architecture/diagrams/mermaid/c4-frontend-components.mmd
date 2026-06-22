@@ -7,17 +7,17 @@ flowchart TB
         PAGES["Pages: SplashPage, AuthPage, DashboardPage"]
         DASH["Dashboard Components: TopBar, TaskList, TaskCard, PetCard, PetVisual"]
         UI["Shared UI: Button, ProgressBar, StatBadge"]
-        STATE["Core State & Services: AppStateService, BackendApiService, PokemonService, WeatherService"]
-        MODELS["Models: User, Auth, Task, Pet, AppState"]
+        STATE["Core State & Services: AppStateService, BackendApiService"]
+        MODELS["Models: User, Auth, Task, Pet, AppState, Weather"]
     end
 
     API["Backend API"]
 
     BROWSER --> ROUTES
     ROUTES --> GUARDS
-    ROUTES --> PAGES
+    GUARDS --> PAGES
     PAGES --> DASH
     PAGES --> UI
     PAGES --> STATE
     STATE --> MODELS
-    STATE -.-> API
+    STATE -. "REST / JSON" .-> API

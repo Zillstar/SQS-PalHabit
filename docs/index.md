@@ -1,9 +1,10 @@
-# PokeHabit Dokumentation
+# PalHabit Dokumentation
 
-PokeHabit ist die SQS-Semesterarbeit als Web-App mit Angular-Frontend,
+PalHabit ist die SQS-Semesterarbeit als Web-App mit Angular-Frontend,
 Spring-Boot-Backend, PostgreSQL und lokalem Quality Hub. Diese Dokumentation ist
 kapitelweise geordnet, damit Abgabe, Review und Präsentation schnell prüfbar
 bleiben.
+
 
 ## Inhaltsverzeichnis
 
@@ -16,7 +17,9 @@ bleiben.
 | [06 Betrieb](06-operations/readthedocs-publish.md)      | ReadTheDocs-Veröffentlichung und operative Hinweise                 |
 
 ## Schnellstart
-todo
+
+Die Anwendung kann entweder als App-Stack oder mit zusätzlichem Quality Hub gestartet werden.
+
 App und Datenbank:
 
 ```bash
@@ -37,16 +40,37 @@ Standard-URLs:
 | Backend     | `http://localhost:8181` |
 | Quality Hub | `http://localhost:8088` |
 
+---
+
+## Technologie-Stack
+
+| Ebene              | Technologie                                                |
+|--------------------|------------------------------------------------------------|
+| Backend            | Java 21, Spring Boot 3.2, Spring Data JPA                  |
+| Authentifizierung  | Passwort-Hashing mit Spring Security Crypto                |
+| Datenbank          | PostgreSQL 16 (H2 In-Memory-Datenbank für Tests)           |
+| Externer Dienst    | Open-Meteo API für Wetterdaten                             |
+| Frontend           | TypeScript, Angular 21                                     |
+| Unit-Tests         | JUnit 5 + Mockito (Backend), Vitest (Frontend)             |
+| Integrationstests  | Spring Boot Test, H2, WireMock                             |
+| Architekturtests   | ArchUnit                                                   |
+| E2E-Tests          | Playwright                                                 |
+| Codequalität       | JaCoCo, Checkstyle, SpotBugs, ESLint, Prettier, SonarQube  |
+| CI/CD              | GitHub Actions                                             |
+| Betrieb            | Docker Compose                                             |
+
+---
+
 ## Wichtige Nachweise
 
-| Bereich                   | Dokumentation                                                                                            |
-| ------------------------- | -------------------------------------------------------------------------------------------------------- |
-| API-Verträge              | `03-api/`                                                                                                |
-| Architektur               | `02-architecture/arc42/`                                                                                 |
-| Architekturentscheidungen | `adr/` und `ger-adr/`                                                                                    |
-| C4-Modell                 | `02-architecture/diagrams/c4-diagram.md` und `02-architecture/diagrams/structurizr/workspace.dsl`        |
-| Qualitätssicherung        | `04-quality/`, Quality Hub, JaCoCo, Vitest Coverage, Checkstyle, SpotBugs, ESLint, npm Audit, Playwright |
-| Präsentation              | `05-presentation/`                                                                                       |
+| Bereich                   | Dokumentation                                                                                                 |
+| ------------------------- |---------------------------------------------------------------------------------------------------------------|
+| API-Verträge              | `03-api/`                                                                                                     |
+| Architektur               | `02-architecture/arc42/`                                                                                      |
+| Architekturentscheidungen | `adr/` und `ger-adr/`                                                                                         |
+| C4-Modell                 | `02-architecture/diagrams/c4-diagram-description.md` und `02-architecture/diagrams/structurizr/workspace.dsl` |
+| Qualitätssicherung        | `04-quality/`, Quality Hub, JaCoCo, Vitest Coverage, Checkstyle, SpotBugs, ESLint, npm Audit, Playwright, H2  |
+| Präsentation              | `05-presentation/`                                                                                            |
 
 ## Abgabe-relevante Punkte
 
@@ -66,6 +90,10 @@ Das Repository enthält die ReadTheDocs-Konfiguration:
 - `mkdocs.yml`
 - `docs/requirements.txt`
 
-Nach dem Verbinden des öffentlichen Repositorys mit ReadTheDocs kann die
-Dokumentation direkt aus dem `docs/`-Ordner gebaut werden.
-Die konkreten Schritte stehen in [ReadTheDocs veröffentlichen](06-operations/readthedocs-publish.md).
+Nach dem Verbinden des öffentlichen Repositorys mit ReadTheDocs wurde die
+Dokumentation direkt aus dem `docs/`-Ordner gebaut.
+Die konkreten Schritte stehen in [ReadTheDocs](06-operations/readthedocs-publish.md).
+
+Die öffentliche Dokumentation ist unter folgender URL erreichbar:
+
+[https://luinarasqs-semesterarbeit.readthedocs.io/de/latest/](https://luinarasqs-semesterarbeit.readthedocs.io/de/latest/)

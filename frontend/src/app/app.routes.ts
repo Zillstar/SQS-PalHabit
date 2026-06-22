@@ -6,12 +6,7 @@ export const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'splash',
-  },
-  {
-    path: 'splash',
-    loadComponent: () =>
-      import('./pages/splash/splash-page.component').then((module) => module.SplashPageComponent),
+    redirectTo: 'auth',
   },
   {
     path: 'auth',
@@ -29,6 +24,6 @@ export const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: 'splash',
+    redirectTo: 'auth',
   },
 ];

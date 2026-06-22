@@ -46,32 +46,63 @@ async function main() {
 
   const tasks = [
     {
-      title: "Complete one study session",
-      description: "Finish at least one focused learning session.",
+      title: "30 Minuten lernen",
+      legacyTitles: ["Complete one study session"],
+      description: "Schließe eine fokussierte Lerneinheit ab.",
       feedPoints: 20,
     },
     {
-      title: "Drink water",
-      description: "Drink enough water during the day.",
+      title: "Wasser trinken",
+      legacyTitles: ["Drink water"],
+      description: "Trinke genug Wasser über den Tag verteilt.",
       feedPoints: 10,
     },
     {
-      title: "Clean workspace",
-      description: "Clean your desk or learning area.",
+      title: "Arbeitsplatz aufräumen",
+      legacyTitles: [
+        "Clean workspace",
+        "Arbeitsplatz aufraeumen",
+        "Workspace aufraeumen",
+        "Workspace aufräumen",
+      ],
+      description: "Räume deinen Schreibtisch oder Lernbereich auf.",
       feedPoints: 15,
     },
   ];
 
   for (const task of tasks) {
-    await prisma.task.upsert({
-      where: {
+    let existingTask = await prisma.task.findUnique({
+      where: { title: task.title },
+    });
+
+    for (const legacyTitle of task.legacyTitles) {
+      if (existingTask) {
+        break;
+      }
+
+      existingTask = await prisma.task.findUnique({
+        where: { title: legacyTitle },
+      });
+    }
+
+    if (existingTask) {
+      await prisma.task.update({
+        where: { id: existingTask.id },
+        data: {
+          title: task.title,
+          description: task.description,
+          feedPoints: task.feedPoints,
+        },
+      });
+      continue;
+    }
+
+    await prisma.task.create({
+      data: {
         title: task.title,
-      },
-      update: {
         description: task.description,
         feedPoints: task.feedPoints,
       },
-      create: task,
     });
   }
 

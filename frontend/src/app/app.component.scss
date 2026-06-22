@@ -16,45 +16,6 @@
   min-height: 100vh;
 }
 
-.app-shell__restore {
-  position: fixed;
-  top: 1rem;
-  left: 50%;
-  z-index: 5;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6rem;
-  min-height: 2.5rem;
-  padding: 0.55rem 0.85rem;
-  border: 1px solid var(--color-line);
-  border-radius: var(--radius-pill);
-  background: rgba(255, 255, 255, 0.94);
-  box-shadow: var(--shadow-card);
-  color: var(--color-text-soft);
-  transform: translateX(-50%);
-}
-
-.app-shell__restore-dot {
-  width: 0.55rem;
-  height: 0.55rem;
-  border-radius: 50%;
-  background: var(--color-blue);
-  animation: restore-pulse 900ms ease-in-out infinite;
-}
-
-@keyframes restore-pulse {
-  0%,
-  100% {
-    opacity: 0.35;
-    transform: scale(0.88);
-  }
-
-  50% {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
 .app-shell__ambient {
   position: fixed;
   inset: 0;

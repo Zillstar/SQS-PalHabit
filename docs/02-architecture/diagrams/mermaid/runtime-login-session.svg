@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="1160" viewBox="0 0 1280 1160" role="img" aria-label="Sequenzdiagramm Login und Session">
+<defs>
+  <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+    <path d="M2,2 L10,6 L2,10 Z" fill="#334155"/>
+  </marker>
+  <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+    <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#0f172a" flood-opacity="0.12"/>
+  </filter>
+</defs>
+<rect width="1280" height="1160" fill="#FFFFFF"/>
+
+<text x="640.0" y="50" text-anchor="middle" font-size="28" font-weight="700" fill="#0F172A" font-family="Inter, Arial, sans-serif">Login und Session</text>
+<text x="640.0" y="82" text-anchor="middle" font-size="16" font-weight="400" fill="#475569" font-family="Inter, Arial, sans-serif">Laufzeitsicht: Authentifizierung, Session-Erzeugung und Dashboard-Ladevorgang</text>
+<rect x="55" y="125" width="1170" height="88" rx="20" fill="#EFF6FF" stroke="#E2E8F0" stroke-width="1.2" />
+<text x="115" y="153" text-anchor="start" font-size="14" font-weight="700" fill="#475569" font-family="Inter, Arial, sans-serif">App-Start und Eingabe</text>
+<rect x="55" y="345" width="1170" height="282" rx="20" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1.2" />
+<text x="115" y="373" text-anchor="start" font-size="14" font-weight="700" fill="#475569" font-family="Inter, Arial, sans-serif">Authentifizierung im Backend</text>
+<rect x="55" y="715" width="1170" height="282" rx="20" fill="#F0FDF4" stroke="#E2E8F0" stroke-width="1.2" />
+<text x="115" y="743" text-anchor="start" font-size="14" font-weight="700" fill="#475569" font-family="Inter, Arial, sans-serif">Dashboard initial laden</text>
+<g filter="url(#shadow)">
+<rect x="25" y="110" width="210" height="54" rx="14" fill="#EAF3FF" stroke="#2563EB" stroke-width="2" />
+</g>
+<text x="130" y="144" text-anchor="middle" font-size="16" font-weight="700" fill="#0F172A" font-family="Inter, Arial, sans-serif">Nutzer</text>
+<line x1="130" y1="164" x2="130" y2="1095" stroke="#94A3B8" stroke-width="2" stroke-dasharray="10 8" />
+<g filter="url(#shadow)">
+<rect x="325" y="110" width="210" height="54" rx="14" fill="#EAF3FF" stroke="#2563EB" stroke-width="2" />
+</g>
+<text x="430" y="144" text-anchor="middle" font-size="16" font-weight="700" fill="#0F172A" font-family="Inter, Arial, sans-serif">Angular-Frontend</text>
+<line x1="430" y1="164" x2="430" y2="1095" stroke="#94A3B8" stroke-width="2" stroke-dasharray="10 8" />
+<g filter="url(#shadow)">
+<rect x="655" y="110" width="210" height="54" rx="14" fill="#EAF3FF" stroke="#2563EB" stroke-width="2" />
+</g>
+<text x="760" y="144" text-anchor="middle" font-size="16" font-weight="700" fill="#0F172A" font-family="Inter, Arial, sans-serif">Spring-Boot-Backend</text>
+<line x1="760" y1="164" x2="760" y2="1095" stroke="#94A3B8" stroke-width="2" stroke-dasharray="10 8" />
+<g filter="url(#shadow)">
+<rect x="975" y="110" width="210" height="54" rx="14" fill="#EAF3FF" stroke="#2563EB" stroke-width="2" />
+</g>
+<text x="1080" y="144" text-anchor="middle" font-size="16" font-weight="700" fill="#0F172A" font-family="Inter, Arial, sans-serif">PostgreSQL</text>
+<line x1="1080" y1="164" x2="1080" y2="1095" stroke="#94A3B8" stroke-width="2" stroke-dasharray="10 8" />
+<rect x="748" y="386" width="24" height="288" rx="6" fill="#BFDBFE" stroke="#2563EB" stroke-width="1.3" />
+<rect x="1068" y="456" width="24" height="78" rx="6" fill="#DBEAFE" stroke="#2563EB" stroke-width="1.3" />
+<rect x="748" y="756" width="24" height="218" rx="6" fill="#BFDBFE" stroke="#2563EB" stroke-width="1.3" />
+<rect x="1068" y="826" width="24" height="78" rx="6" fill="#DBEAFE" stroke="#2563EB" stroke-width="1.3" />
+<line x1="130" y1="180" x2="430" y2="180" stroke="#334155" stroke-width="2.2"  marker-end="url(#arrow)" />
+<text x="280.0" y="168" text-anchor="middle" font-size="15" font-weight="500" fill="#0F172A" font-family="Inter, Arial, sans-serif">1. App öffnen</text>
+<line x1="430" y1="240" x2="130" y2="240" stroke="#334155" stroke-width="2.2" stroke-dasharray="8 8" marker-end="url(#arrow)" />
+<text x="280.0" y="228" text-anchor="middle" font-size="15" font-weight="500" fill="#0F172A" font-family="Inter, Arial, sans-serif">2. Splash-Screen anzeigen</text>
+<line x1="130" y1="300" x2="430" y2="300" stroke="#334155" stroke-width="2.2"  marker-end="url(#arrow)" />
+<text x="280.0" y="288" text-anchor="middle" font-size="15" font-weight="500" fill="#0F172A" font-family="Inter, Arial, sans-serif">3. Login oder Registrierung absenden</text>
+<line x1="430" y1="390" x2="760" y2="390" stroke="#334155" stroke-width="2.2"  marker-end="url(#arrow)" />
+<text x="595.0" y="378" text-anchor="middle" font-size="15" font-weight="500" fill="#0F172A" font-family="Inter, Arial, sans-serif">4. POST /api/auth/login oder /api/auth/signup</text>
+<line x1="760" y1="460" x2="1080" y2="460" stroke="#334155" stroke-width="2.2"  marker-end="url(#arrow)" />
+<text x="920.0" y="448" text-anchor="middle" font-size="15" font-weight="500" fill="#0F172A" font-family="Inter, Arial, sans-serif">5. Nutzer prüfen oder anlegen</text>
+<line x1="1080" y1="530" x2="760" y2="530" stroke="#334155" stroke-width="2.2" stroke-dasharray="8 8" marker-end="url(#arrow)" />
+<text x="920.0" y="518" text-anchor="middle" font-size="15" font-weight="500" fill="#0F172A" font-family="Inter, Arial, sans-serif">6. Nutzerdaten zurückgeben</text>
+<path d="M772,600 H970 V642 H778" fill="none" stroke="#334155" stroke-width="2.2" marker-end="url(#arrow)" />
+<text x="878" y="588" text-anchor="middle" font-size="15" font-weight="500" fill="#0F172A" font-family="Inter, Arial, sans-serif">7. Session erzeugen und Login-/Streak-Daten aktualisieren</text>
+<line x1="760" y1="670" x2="430" y2="670" stroke="#334155" stroke-width="2.2" stroke-dasharray="8 8" marker-end="url(#arrow)" />
+<text x="595.0" y="658" text-anchor="middle" font-size="15" font-weight="500" fill="#0F172A" font-family="Inter, Arial, sans-serif">8. Authentifizierter Zustand</text>
+<line x1="430" y1="760" x2="760" y2="760" stroke="#334155" stroke-width="2.2"  marker-end="url(#arrow)" />
+<text x="595.0" y="748" text-anchor="middle" font-size="15" font-weight="500" fill="#0F172A" font-family="Inter, Arial, sans-serif">9. Dashboard-Daten laden</text>
+<line x1="760" y1="830" x2="1080" y2="830" stroke="#334155" stroke-width="2.2"  marker-end="url(#arrow)" />
+<text x="920.0" y="818" text-anchor="middle" font-size="15" font-weight="500" fill="#0F172A" font-family="Inter, Arial, sans-serif">10. Tasks, Spielstand und Pal-Fortschritt laden</text>
+<line x1="1080" y1="900" x2="760" y2="900" stroke="#334155" stroke-width="2.2" stroke-dasharray="8 8" marker-end="url(#arrow)" />
+<text x="920.0" y="888" text-anchor="middle" font-size="15" font-weight="500" fill="#0F172A" font-family="Inter, Arial, sans-serif">11. Dashboard-Daten</text>
+<line x1="760" y1="970" x2="430" y2="970" stroke="#334155" stroke-width="2.2" stroke-dasharray="8 8" marker-end="url(#arrow)" />
+<text x="595.0" y="958" text-anchor="middle" font-size="15" font-weight="500" fill="#0F172A" font-family="Inter, Arial, sans-serif">12. Spielstand und Tasks</text>
+<line x1="430" y1="1040" x2="130" y2="1040" stroke="#334155" stroke-width="2.2" stroke-dasharray="8 8" marker-end="url(#arrow)" />
+<text x="280.0" y="1028" text-anchor="middle" font-size="15" font-weight="500" fill="#0F172A" font-family="Inter, Arial, sans-serif">13. Dashboard anzeigen</text>
+<rect x="330" y="1050" width="620" height="56" rx="14" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.5" />
+<text x="640" y="1085" text-anchor="middle" font-size="15" font-weight="600" fill="#334155" font-family="Inter, Arial, sans-serif">Authentifizierung und Session-Verwaltung bleiben zentral im Backend.</text>
+</svg>

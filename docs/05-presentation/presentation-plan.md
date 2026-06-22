@@ -1,6 +1,6 @@
 # Präsentationsablauf
 
-Ziel: In 15 Minuten zeigen, dass PokeHabit als App funktioniert und dass die
+Ziel: In 15 Minuten zeigen, dass PalHabit als App funktioniert und dass die
 Softwarequalität nicht nur behauptet, sondern automatisiert nachgewiesen wird.
 
 ## Vorbereitung vor der Präsentation
@@ -37,7 +37,7 @@ Softwarequalität nicht nur behauptet, sondern automatisiert nachgewiesen wird.
 
 | Zeit          | Inhalt                  | Was zeigen                                                                       | Kernaussage                                                                                                                               |
 | ------------- | ----------------------- | -------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| 0:00 - 1:00   | Einstieg                | App-Startseite oder Dashboard                                                    | "PokeHabit verbindet kleine Self-Care-Aufgaben mit einem Pokémon-Partner."                                                                |
+| 0:00 - 1:00   | Einstieg                | App-Startseite oder Dashboard                                                    | "PalHabit verbindet kleine Self-Care-Aufgaben mit einem Pal-Partner."                                                                |
 | 1:00 - 3:30   | Live-Demo Nutzerfluss   | Registrierung/Login, Dashboard, Quest, Wasser, Level-Up-Test, Logout             | "Die App ist nicht nur ein Mockup; Frontend und Backend sprechen über echte REST-Endpunkte."                                              |
 | 3:30 - 5:00   | API und Security        | `/api/tasks`, geschützter Game-State, Session-Cookie erklären                    | "Es gibt öffentliche und geschützte Endpunkte, Passwörter werden gehasht, Sessions laufen serverseitig."                                  |
 | 5:00 - 6:30   | Externer Service        | Wetter-Szene im Dashboard oder Code `WeatherService` / `BackendWeatherAdapter` | "Die App nutzt Open-Meteo für echte Wetterdaten und passt die Dashboard-Szene daran an."                                                  |
@@ -51,8 +51,8 @@ Softwarequalität nicht nur behauptet, sondern automatisiert nachgewiesen wird.
 
 ### Einstieg
 
-"Wir zeigen PokeHabit, eine kleine Self-Care-Web-App. Nutzer erledigen tägliche
-Aufgaben, trinken Wasser und begleiten dadurch einen Pokémon-Partner. Für die
+"Wir zeigen PalHabit, eine kleine Self-Care-Web-App. Nutzer erledigen tägliche
+Aufgaben, trinken Wasser und begleiten dadurch einen Pal-Partner. Für die
 Semesterarbeit war uns wichtig, nicht nur eine Oberfläche zu bauen, sondern den
 Qualitätsnachweis lokal sichtbar zu machen."
 
@@ -61,7 +61,7 @@ Qualitätsnachweis lokal sichtbar zu machen."
 "Ich logge mich mit dem Demo-User ein. Das Dashboard lädt den Nutzerzustand aus
 dem Backend. Wenn ich eine Quest abschließe oder Wasser trinke, geht das über
 die API zurück ins Backend und wird persistiert. Quest-Fortschritt verändert XP,
-Level und später auch die Entwicklung des Pokémon."
+Level und später auch die Entwicklung des Pal."
 
 ### API und Security
 
@@ -140,7 +140,7 @@ Quality-Nachweis der relevante Fokus."
 | Wie erfüllt ihr die Testpyramide?             | "Die Zuordnung steht in `docs/04-quality/test-pyramid.md`: Backend-Unit- und Integrationstests, Frontend-Unit-Tests, ArchUnit, Security-nahe Controller-Tests und Playwright-E2E."                                                                                                                                                                                                                                                                                                                 |
 | Wo sieht man Coverage?                        | "Im Quality Hub über JaCoCo für Backend und Vitest Coverage für Frontend."                                                                                                                                                                                                                                                                                                                                                                                                                         |
 | Warum eigener Quality Hub statt nur Terminal? | "Für die Abgabe ist es schneller prüfbar: ein Docker-Start, ein Dashboard, Links zu Logs und Reports."                                                                                                                                                                                                                                                                                                                                                                                             |
-| Was würdet ihr als nächstes verbessern?       | "Als Nächstes würden wir vor allem das Produktgefühl ausbauen: ein schöneres, stärker animiertes UI, mehr Pokémon-Auswahl statt nur fester Starter und eine Sammelbox, in der man Pokémon horten kann, eventuell auch mit seltenen Shinies. Danach wären eigene Tasks spannend: Nutzer könnten Aufgaben selbst anlegen und dafür vorgefertigte Punkte-Templates wählen, damit die Gamification fair bleibt. Technisch kämen dann noch produktives Deployment-Hardening und besseres Caching dazu." |
+| Was würdet ihr als nächstes verbessern?       | "Als Nächstes würden wir vor allem das Produktgefühl ausbauen: ein schöneres, stärker animiertes UI, mehr Pal-Auswahl statt nur fester Starter und eine Sammelbox, in der man Pal horten kann, eventuell auch mit seltenen seltenen Varianten. Danach wären eigene Tasks spannend: Nutzer könnten Aufgaben selbst anlegen und dafür vorgefertigte Punkte-Templates wählen, damit die Gamification fair bleibt. Technisch kämen dann noch produktives Deployment-Hardening und besseres Caching dazu." |
 
 ## Aufteilung im Team
 
